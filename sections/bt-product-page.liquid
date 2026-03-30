@@ -212,10 +212,26 @@
       {%- assign save_pct = current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price -%}
     {%- endif -%}
 
-    <!-- Variant data for JS -->
+    <!-- Variant + selling plan allocation data for JS -->
     <script>
       var btPdVariants_{{ section.id }} = {{ prod.variants | json }};
       var btPdOptions_{{ section.id }} = {{ prod.options | json }};
+      var btPdAllocations_{{ section.id }} = {
+        {%- for v in prod.variants -%}
+          "{{ v.id }}": [
+            {%- for alloc in v.selling_plan_allocations -%}
+              {
+                "id": {{ alloc.selling_plan.id }},
+                "name": {{ alloc.selling_plan.name | json }},
+                "price": {{ alloc.price }},
+                "compare_at_price": {{ alloc.compare_at_price }},
+                "per_delivery_price": {{ alloc.per_delivery_price }},
+                "options": {{ alloc.selling_plan.options | json }}
+              }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          ]{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      };
     </script>
 
     <!-- ═══ 1. PRODUCT HERO ═══ -->
@@ -293,72 +309,35 @@
         <!-- Purchase Options (Loop Subscriptions) -->
         <div class="bt-pd-purchase-opts" id="bt-pd-purchase-opts-{{ section.id }}">
 
-          {%- comment %} ── One-time purchase ── {%- endcomment %}
-          <label class="bt-pd-purchase-opt bt-pd-active" data-type="onetime">
+          <!-- One-time -->
+          <label class="bt-pd-purchase-opt bt-pd-active" data-type="onetime" id="bt-pd-opt-onetime-{{ section.id }}">
             <input type="radio" name="bt_purchase_{{ section.id }}" value="onetime" checked>
             <div class="bt-pd-purchase-opt__title">One-Time Purchase</div>
-            <div class="bt-pd-purchase-opt__price" id="bt-pd-onetime-price-{{ section.id }}">
-              {{ current_variant.price | money }}
+            <div class="bt-pd-purchase-opt__price">
+              <span id="bt-pd-onetime-val-{{ section.id }}">{{ current_variant.price | money }}</span>
               {%- if has_compare -%}
-                <s>{{ current_variant.compare_at_price | money }}</s>
-                <span class="bt-pd-purchase-opt__save">SAVE {{ save_pct }}%</span>
+                <s id="bt-pd-onetime-compare-{{ section.id }}">{{ current_variant.compare_at_price | money }}</s>
               {%- endif -%}
             </div>
           </label>
 
-          {%- comment %} ── Loop selling plans ── {%- endcomment %}
-          {%- if prod.selling_plan_groups.size > 0 -%}
-            {%- for group in prod.selling_plan_groups -%}
-              {%- for plan in group.selling_plans -%}
-                {%- assign plan_pct = 0 -%}
-                {%- for adj in plan.price_adjustments -%}
-                  {%- if adj.value_type == 'percentage' -%}{%- assign plan_pct = adj.value -%}{%- endif -%}
-                {%- endfor -%}
-                <label class="bt-pd-purchase-opt"
-                       data-type="subscribe"
-                       data-plan-id="{{ plan.id }}"
-                       data-plan-pct="{{ plan_pct }}">
-                  <span class="bt-pd-purchase-opt__tag">Most Parents Choose This</span>
-                  <input type="radio" name="bt_purchase_{{ section.id }}" value="subscribe_{{ plan.id }}">
-                  <div class="bt-pd-purchase-opt__title">{{ plan.name }}</div>
-                  <div class="bt-pd-purchase-opt__price">
-                    <span class="bt-pd-sub-price-display" id="bt-pd-sub-price-{{ section.id }}-{{ plan.id }}">
-                      {%- assign sub_price = current_variant.price | times: plan_pct | divided_by: 100 -%}
-                      {%- assign sub_final = current_variant.price | minus: sub_price -%}
-                      {{ sub_final | money }}
-                    </span>
-                    <s>{{ current_variant.price | money }}</s>
-                    {%- if plan_pct > 0 -%}
-                      <span class="bt-pd-purchase-opt__save">SAVE {{ plan_pct }}%</span>
-                    {%- endif -%}
-                  </div>
-                  {%- if plan.options.size > 0 -%}
-                    <div class="bt-pd-purchase-opt__detail">
-                      Delivered {{ plan.options.first.value | downcase }}
-                    </div>
-                  {%- endif -%}
-                  <ul class="bt-pd-sub__checks">
-                    <li>✔ Cancel anytime in your account</li>
-                    <li>✔ Pause or skip deliveries anytime</li>
-                    <li>✔ Dentists recommend new heads every 30 days</li>
-                  </ul>
-                </label>
-              {%- endfor -%}
-            {%- endfor -%}
-          {%- else -%}
-            {%- comment %} Fallback if no Loop selling plans are set up yet {%- endcomment %}
-            <label class="bt-pd-purchase-opt" data-type="subscribe-fallback">
-              <span class="bt-pd-purchase-opt__tag">Most Parents Choose This</span>
-              <input type="radio" name="bt_purchase_{{ section.id }}" value="subscribe_fallback">
-              <div class="bt-pd-purchase-opt__title">Automatic Replacement Plan</div>
-              <div class="bt-pd-purchase-opt__detail">Set up Loop Subscriptions in your Shopify admin to activate this option.</div>
-              <ul class="bt-pd-sub__checks">
-                <li>✔ Cancel anytime</li>
-                <li>✔ Pause anytime</li>
-                <li>✔ Fresh head delivered every 30 days</li>
-              </ul>
-            </label>
-          {%- endif -%}
+          <!-- Subscribe (JS-populated from variant.selling_plan_allocations) -->
+          <label class="bt-pd-purchase-opt" data-type="subscribe" id="bt-pd-opt-sub-{{ section.id }}">
+            <span class="bt-pd-purchase-opt__tag">Most Parents Choose This</span>
+            <input type="radio" name="bt_purchase_{{ section.id }}" value="subscribe">
+            <div class="bt-pd-purchase-opt__title" id="bt-pd-sub-name-{{ section.id }}">Subscribe &amp; Save</div>
+            <div class="bt-pd-purchase-opt__price">
+              <span id="bt-pd-sub-price-{{ section.id }}">—</span>
+              <s id="bt-pd-sub-compare-{{ section.id }}" style="display:none"></s>
+              <span class="bt-pd-purchase-opt__save" id="bt-pd-sub-save-{{ section.id }}" style="display:none"></span>
+            </div>
+            <div class="bt-pd-purchase-opt__detail" id="bt-pd-sub-detail-{{ section.id }}"></div>
+            <ul class="bt-pd-sub__checks">
+              <li>✔ Cancel anytime in your account</li>
+              <li>✔ Pause or skip deliveries anytime</li>
+              <li>✔ Dentists recommend new heads every 30 days</li>
+            </ul>
+          </label>
 
         </div>
 
@@ -591,6 +570,102 @@
     }
   }
 
+  /* ── Selling plan allocations (from Loop) ── */
+  var allocations = window['btPdAllocations_' + sid] || {};
+  var sellingPlanInput = document.getElementById('bt-pd-selling-plan-' + sid);
+  var subOpt = document.getElementById('bt-pd-opt-sub-' + sid);
+  var optOnetime = document.getElementById('bt-pd-opt-onetime-' + sid);
+
+  /* Update subscribe option UI for the current variant's allocation */
+  function updateSubOption() {
+    var v = findVariant();
+    if (!v) return;
+
+    var varAllocs = allocations[String(v.id)] || [];
+
+    if (varAllocs.length === 0) {
+      /* No subscription available for this variant — hide subscribe option */
+      if (subOpt) { subOpt.style.display = 'none'; }
+      /* Switch back to one-time if subscribe was active */
+      if (sellingPlanInput) sellingPlanInput.value = '';
+      setActiveOpt(optOnetime);
+      if (atcPrice) atcPrice.textContent = money(v.price);
+      return;
+    }
+
+    /* Show subscribe option */
+    if (subOpt) subOpt.style.display = '';
+    var alloc = varAllocs[0];
+
+    /* Name */
+    var nameEl = document.getElementById('bt-pd-sub-name-' + sid);
+    if (nameEl) nameEl.textContent = alloc.name;
+
+    /* Price per delivery */
+    var priceEl = document.getElementById('bt-pd-sub-price-' + sid);
+    if (priceEl) priceEl.textContent = money(alloc.per_delivery_price);
+
+    /* Compare / save */
+    var compareEl = document.getElementById('bt-pd-sub-compare-' + sid);
+    var saveEl    = document.getElementById('bt-pd-sub-save-' + sid);
+    if (alloc.compare_at_price && alloc.compare_at_price > alloc.per_delivery_price) {
+      if (compareEl) { compareEl.textContent = money(alloc.compare_at_price); compareEl.style.display = ''; }
+      if (saveEl) {
+        var pct = Math.round((alloc.compare_at_price - alloc.per_delivery_price) * 100 / alloc.compare_at_price);
+        saveEl.textContent = 'SAVE ' + pct + '%';
+        saveEl.style.display = '';
+      }
+    } else {
+      if (compareEl) compareEl.style.display = 'none';
+      if (saveEl)    saveEl.style.display    = 'none';
+    }
+
+    /* Delivery interval */
+    var detailEl = document.getElementById('bt-pd-sub-detail-' + sid);
+    if (detailEl && alloc.options && alloc.options[0]) {
+      detailEl.textContent = 'Delivered ' + alloc.options[0].value.toLowerCase();
+    }
+
+    /* If subscribe is currently selected, update selling_plan + ATC price */
+    if (subOpt && subOpt.classList.contains('bt-pd-active')) {
+      if (sellingPlanInput) sellingPlanInput.value = alloc.id;
+      if (atcPrice) atcPrice.textContent = money(alloc.per_delivery_price);
+    }
+
+    /* Also update one-time price */
+    var onetimeVal = document.getElementById('bt-pd-onetime-val-' + sid);
+    if (onetimeVal) onetimeVal.textContent = money(v.price);
+  }
+
+  /* Set active purchase option */
+  function setActiveOpt(el) {
+    [optOnetime, subOpt].forEach(function(o) { if (o) o.classList.remove('bt-pd-active'); });
+    if (el) {
+      el.classList.add('bt-pd-active');
+      var r = el.querySelector('input[type="radio"]');
+      if (r) r.checked = true;
+    }
+  }
+
+  /* Purchase option click */
+  [optOnetime, subOpt].forEach(function(opt) {
+    if (!opt) return;
+    opt.addEventListener('click', function() {
+      setActiveOpt(this);
+      var v = findVariant();
+      if (this.dataset.type === 'onetime') {
+        if (sellingPlanInput) sellingPlanInput.value = '';
+        if (atcPrice) atcPrice.textContent = money(v ? v.price : 0);
+      } else {
+        var varAllocs = v ? (allocations[String(v.id)] || []) : [];
+        if (varAllocs[0]) {
+          if (sellingPlanInput) sellingPlanInput.value = varAllocs[0].id;
+          if (atcPrice) atcPrice.textContent = money(varAllocs[0].per_delivery_price);
+        }
+      }
+    });
+  });
+
   /* ── Variant option button clicks ── */
   optionGroups.forEach(function(group) {
     group.querySelectorAll('.bt-pd-variant-btn').forEach(function(btn) {
@@ -599,58 +674,13 @@
         this.classList.add('bt-pd-active');
         selectedOptions[parseInt(group.dataset.optionIndex)] = this.dataset.value;
         updateVariant();
-        updateSubPrices(); /* recalculate subscription prices for new variant */
+        updateSubOption(); /* sync subscription to new variant's selling plan */
       });
     });
   });
 
-  /* ── Loop purchase option toggle ── */
-  var sellingPlanInput = document.getElementById('bt-pd-selling-plan-' + sid);
-  var purchaseOpts = document.querySelectorAll('#bt-pd-purchase-opts-' + sid + ' .bt-pd-purchase-opt');
-
-  function updateSubPrices() {
-    var v = findVariant();
-    if (!v) return;
-    purchaseOpts.forEach(function(opt) {
-      var pct = parseFloat(opt.dataset.planPct || 0);
-      var planId = opt.dataset.planId;
-      if (!planId || pct === 0) return;
-      var discounted = Math.round(v.price * (1 - pct / 100));
-      var el = document.getElementById('bt-pd-sub-price-' + sid + '-' + planId);
-      if (el) el.textContent = money(discounted);
-    });
-    /* also update one-time price display */
-    var oneTimePrice = document.getElementById('bt-pd-onetime-price-' + sid);
-    if (oneTimePrice) {
-      var priceSpan = oneTimePrice.querySelector('.bt-pd-onetime-val');
-      if (priceSpan) priceSpan.textContent = money(v.price);
-    }
-  }
-
-  purchaseOpts.forEach(function(opt) {
-    opt.addEventListener('click', function() {
-      purchaseOpts.forEach(function(o) { o.classList.remove('bt-pd-active'); });
-      this.classList.add('bt-pd-active');
-      var radio = this.querySelector('input[type="radio"]');
-      if (radio) radio.checked = true;
-
-      var type = this.dataset.type;
-      var planId = this.dataset.planId || '';
-      var pct = parseFloat(this.dataset.planPct || 0);
-      var v = findVariant();
-
-      if (type === 'onetime') {
-        /* one-time: clear selling_plan */
-        if (sellingPlanInput) sellingPlanInput.value = '';
-        if (atcPrice) atcPrice.textContent = money(v ? v.price : 0);
-      } else if (type === 'subscribe' && planId) {
-        /* subscription: set selling_plan id */
-        if (sellingPlanInput) sellingPlanInput.value = planId;
-        var subPrice = pct > 0 ? Math.round((v ? v.price : 0) * (1 - pct / 100)) : (v ? v.price : 0);
-        if (atcPrice) atcPrice.textContent = money(subPrice);
-      }
-    });
-  });
+  /* Run on load */
+  updateSubOption();
 
   /* ── Thumbnail gallery swap ── */
   var mainImg = document.getElementById('bt-pd-main-img-' + sid);
