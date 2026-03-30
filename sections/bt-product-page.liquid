@@ -1,0 +1,870 @@
+<!-- Baby Tooth — Product Page Section (Scoped Pure CSS) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  #bt-pd-{{ section.id }} {
+    font-family: 'Nunito', 'Helvetica Neue', Arial, sans-serif;
+    color: #1A2D3D;
+    background: #F3F8FC;
+    box-sizing: border-box;
+  }
+  #bt-pd-{{ section.id }} *,
+  #bt-pd-{{ section.id }} *::before,
+  #bt-pd-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  /* ── Shared ── */
+  .bt-pd-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .bt-pd-pill {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .bt-pd-pill--red   { background: #fee2e2; color: #dc2626; }
+  .bt-pd-pill--green { background: #dcfce7; color: #16a34a; }
+  .bt-pd-pill--blue  { background: #dbeafe; color: #1d4ed8; }
+
+  /* ── Product Hero ── */
+  .bt-pd-hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  /* Gallery */
+  .bt-pd-gallery {}
+  .bt-pd-gallery__main {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #EDF2F7;
+    margin-bottom: 12px;
+  }
+  .bt-pd-gallery__main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+  }
+  .bt-pd-gallery__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: #4D9BCB;
+    opacity: 0.4;
+  }
+  .bt-pd-gallery__thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .bt-pd-gallery__thumb {
+    aspect-ratio: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s;
+    background: #EDF2F7;
+  }
+  .bt-pd-gallery__thumb:hover,
+  .bt-pd-gallery__thumb.bt-pd-active { border-color: #4D9BCB; }
+  .bt-pd-gallery__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bt-pd-gallery__thumb-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; opacity: 0.4;
+  }
+
+  /* Product Info */
+  .bt-pd-info { display: flex; flex-direction: column; gap: 18px; }
+  .bt-pd-stars {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #EDF2F7; border-radius: 999px;
+    padding: 6px 14px; font-size: 0.82rem; font-weight: 700;
+    color: #1A2D3D; width: fit-content;
+  }
+  .bt-pd-stars span:first-child { color: #f59e0b; }
+  .bt-pd-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 900; line-height: 1.2;
+    color: #1A2D3D; margin: 0;
+  }
+  .bt-pd-desc { font-size: 0.97rem; color: #4a5568; line-height: 1.7; margin: 0; }
+  .bt-pd-price-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .bt-pd-price {
+    font-size: 1.8rem; font-weight: 900; color: #1A2D3D;
+  }
+  .bt-pd-compare {
+    font-size: 1rem; color: #9ca3af;
+    text-decoration: line-through; font-weight: 600;
+  }
+  .bt-pd-save {
+    background: #dcfce7; color: #16a34a;
+    font-size: 0.75rem; font-weight: 800;
+    padding: 4px 10px; border-radius: 999px;
+  }
+
+  /* Variant selectors */
+  .bt-pd-label {
+    font-size: 0.82rem; font-weight: 800; color: #1A2D3D;
+    margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+  }
+  .bt-pd-variants { display: flex; flex-wrap: wrap; gap: 8px; }
+  .bt-pd-variant-btn {
+    padding: 9px 20px;
+    border-radius: 999px;
+    border: 2px solid #d1d5db;
+    background: #fff;
+    font-size: 0.88rem; font-weight: 700;
+    cursor: pointer;
+    color: #1A2D3D;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .bt-pd-variant-btn:hover { border-color: #4D9BCB; }
+  .bt-pd-variant-btn.bt-pd-active {
+    border-color: #4D9BCB; background: #F3F8FC; color: #4D9BCB;
+  }
+
+  /* Subscription box */
+  .bt-pd-sub-wrap { position: relative; }
+  .bt-pd-sub-tag {
+    position: absolute; top: -10px; left: 16px;
+    background: #4D9BCB; color: #fff;
+    font-size: 0.65rem; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .bt-pd-sub {
+    border: 2px solid #4D9BCB;
+    border-radius: 16px;
+    padding: 20px 20px 16px;
+    background: #f0f8ff;
+  }
+  .bt-pd-sub__title {
+    font-size: 1rem; font-weight: 800; color: #1A2D3D;
+    margin: 0 0 6px; display: flex; align-items: center; gap-8px;
+  }
+  .bt-pd-sub__body { font-size: 0.82rem; color: #4a5568; line-height: 1.6; margin: 0 0 10px; }
+  .bt-pd-sub__price { font-size: 0.88rem; font-weight: 700; color: #1A2D3D; margin-bottom: 4px; }
+  .bt-pd-sub__save { font-size: 0.82rem; font-weight: 800; color: #1A2D3D; margin-bottom: 8px; }
+  .bt-pd-sub__checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+  .bt-pd-sub__checks li { font-size: 0.8rem; color: #16a34a; font-weight: 700; }
+
+  /* Add to Cart */
+  .bt-pd-atc {
+    display: block;
+    background: #4D9BCB; color: #fff;
+    font-weight: 900; font-size: 1.05rem;
+    padding: 16px 24px; border-radius: 999px;
+    text-align: center; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    border: none; cursor: pointer;
+  }
+  .bt-pd-atc:hover { background: #3F8FBE; color: #fff; transform: translateY(-1px); }
+  .bt-pd-trust {
+    display: flex; justify-content: center; gap: 20px;
+    flex-wrap: wrap; font-size: 0.78rem; color: #718096; font-weight: 600;
+  }
+  .bt-pd-trust span { display: flex; align-items: center; gap: 5px; }
+
+  /* ── Problem ── */
+  .bt-pd-problem {
+    background: #f1f5f9;
+    padding: 72px 24px;
+    text-align: center;
+  }
+  .bt-pd-problem h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 900; color: #1A2D3D; margin: 0 0 14px;
+  }
+  .bt-pd-problem p {
+    font-size: 1rem; color: #4a5568; line-height: 1.7;
+    max-width: 560px; margin: 0 auto 28px;
+  }
+  .bt-pd-problem-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+  .bt-pd-problem-tag {
+    background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 999px; padding: 10px 20px;
+    font-size: 0.9rem; font-weight: 700; color: #1A2D3D;
+  }
+
+  /* ── Solution ── */
+  .bt-pd-solution {
+    background: #fff;
+    padding: 72px 24px;
+    text-align: center;
+  }
+  .bt-pd-solution h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 900; color: #1A2D3D;
+    max-width: 640px; margin: 0 auto 14px; line-height: 1.25;
+  }
+  .bt-pd-solution h2 em { font-style: normal; color: #4D9BCB; }
+  .bt-pd-solution p {
+    font-size: 1rem; color: #4a5568; line-height: 1.7;
+    max-width: 540px; margin: 0 auto 28px;
+  }
+  .bt-pd-btn {
+    display: inline-block;
+    background: #4D9BCB; color: #fff;
+    font-weight: 900; font-size: 1rem;
+    padding: 14px 36px; border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .bt-pd-btn:hover { background: #3F8FBE; color: #fff; transform: translateY(-1px); }
+
+  /* ── How It Works ── */
+  .bt-pd-how {
+    background: #F3F8FC;
+    padding: 72px 24px;
+  }
+  .bt-pd-how h2 {
+    text-align: center;
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 900; color: #1A2D3D; margin: 0 0 40px;
+  }
+  .bt-pd-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 860px;
+    margin: 0 auto 32px;
+  }
+  .bt-pd-step {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .bt-pd-step__num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px;
+    background: #4D9BCB; color: #fff;
+    border-radius: 50%; font-size: 0.85rem; font-weight: 900;
+    margin-bottom: 12px;
+  }
+  .bt-pd-step__icon { font-size: 2rem; display: block; margin-bottom: 8px; }
+  .bt-pd-step__title { font-size: 0.95rem; font-weight: 800; color: #1A2D3D; margin: 0 0 6px; }
+  .bt-pd-step__desc { font-size: 0.82rem; color: #718096; line-height: 1.5; margin: 0; }
+  .bt-pd-safety {
+    max-width: 620px; margin: 0 auto;
+    background: #dcfce7; border-radius: 12px;
+    padding: 14px 20px;
+    text-align: center;
+    font-size: 0.85rem; font-weight: 700; color: #166534;
+  }
+
+  /* ── Reviews ── */
+  .bt-pd-reviews {
+    background: #EDF2F7;
+    padding: 72px 24px;
+    text-align: center;
+  }
+  .bt-pd-reviews h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 900; color: #1A2D3D; margin: 0 0 6px;
+  }
+  .bt-pd-reviews__score {
+    font-size: 0.9rem; font-weight: 700; color: #4a5568; margin-bottom: 32px;
+  }
+  .bt-pd-reviews__score span { color: #f59e0b; }
+  .bt-pd-carousel-wrap { position: relative; overflow: hidden; }
+  .bt-pd-carousel {
+    display: flex; gap: 20px;
+    transition: transform 0.35s ease;
+  }
+  .bt-pd-review-card {
+    min-width: calc(33.333% - 14px);
+    background: #fff; border-radius: 16px;
+    padding: 0 0 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden; text-align: left;
+    flex-shrink: 0;
+  }
+  .bt-pd-review-card__img {
+    width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+    background: #EDF2F7;
+  }
+  .bt-pd-review-card__img-placeholder {
+    width: 100%; aspect-ratio: 4/3;
+    background: #EDF2F7; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 2.5rem; color: #4D9BCB; opacity: 0.4;
+  }
+  .bt-pd-review-card__body { padding: 16px 16px 0; }
+  .bt-pd-review-card__stars { color: #f59e0b; font-size: 1rem; margin-bottom: 6px; }
+  .bt-pd-review-card__text { font-size: 0.88rem; color: #1A2D3D; line-height: 1.6; margin: 0 0 14px; }
+  .bt-pd-review-card__author {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; font-weight: 700; color: #718096;
+  }
+  .bt-pd-review-card__avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #4D9BCB; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 800; flex-shrink: 0;
+  }
+  .bt-pd-carousel-btns {
+    display: flex; justify-content: center; gap: 12px; margin: 24px 0;
+  }
+  .bt-pd-carousel-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: #fff; border: 2px solid #e2e8f0;
+    cursor: pointer; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.15s;
+  }
+  .bt-pd-carousel-btn:hover { border-color: #4D9BCB; color: #4D9BCB; }
+  .bt-pd-reviews__cta { margin-top: 8px; }
+
+  /* ── FAQ ── */
+  .bt-pd-faq {
+    background: #fff;
+    padding: 72px 24px;
+  }
+  .bt-pd-faq h2 {
+    text-align: center;
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 900; color: #1A2D3D; margin: 0 0 36px;
+  }
+  .bt-pd-faq__list {
+    max-width: 720px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .bt-pd-faq__item {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px; overflow: hidden;
+  }
+  .bt-pd-faq__q {
+    width: 100%; background: #fff;
+    border: none; cursor: pointer;
+    padding: 18px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.95rem; font-weight: 700; color: #1A2D3D;
+    text-align: left;
+  }
+  .bt-pd-faq__q:hover { background: #F3F8FC; }
+  .bt-pd-faq__chevron {
+    width: 20px; height: 20px; flex-shrink: 0;
+    transition: transform 0.25s;
+    color: #718096;
+  }
+  .bt-pd-faq__item.bt-pd-open .bt-pd-faq__chevron { transform: rotate(180deg); }
+  .bt-pd-faq__a {
+    display: none;
+    padding: 0 20px 18px;
+    font-size: 0.88rem; color: #4a5568; line-height: 1.7;
+  }
+  .bt-pd-faq__item.bt-pd-open .bt-pd-faq__a { display: block; }
+
+  /* ── Final CTA ── */
+  .bt-pd-final {
+    background: #EDF2F7;
+    padding: 72px 24px;
+    text-align: center;
+  }
+  .bt-pd-final h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 900; color: #1A2D3D; margin: 0 0 12px; line-height: 1.25;
+  }
+  .bt-pd-final p {
+    font-size: 1rem; color: #4a5568; line-height: 1.7;
+    max-width: 480px; margin: 0 auto 28px;
+  }
+  .bt-pd-final__badges {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 16px;
+    margin-top: 16px; font-size: 0.82rem; font-weight: 700; color: #4a5568;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .bt-pd-hero { grid-template-columns: 1fr; gap: 32px; padding: 32px 16px; }
+    .bt-pd-steps { grid-template-columns: 1fr; max-width: 400px; }
+    .bt-pd-review-card { min-width: 100%; }
+    .bt-pd-trust { gap: 12px; }
+    .bt-pd-problem-tags { gap: 8px; }
+  }
+</style>
+
+<div id="bt-pd-{{ section.id }}">
+
+  <!-- ═══════════════════════════════ 1. PRODUCT HERO ═══════════════════════════════ -->
+  <div class="bt-pd-hero">
+
+    <!-- Image Gallery -->
+    <div class="bt-pd-gallery">
+      <div class="bt-pd-gallery__main">
+        {% if section.settings.main_image != blank %}
+          <img id="bt-pd-main-img-{{ section.id }}"
+               src="{{ section.settings.main_image | image_url: width: 900 }}"
+               alt="{{ section.settings.product_title }}" loading="eager">
+        {% else %}
+          <div class="bt-pd-gallery__placeholder">🦷</div>
+        {% endif %}
+      </div>
+      <div class="bt-pd-gallery__thumbs">
+        {% assign thumbs = 'thumb_1,thumb_2,thumb_3,thumb_4' | split: ',' %}
+        {% for t in thumbs %}
+          <div class="bt-pd-gallery__thumb {% if forloop.first %}bt-pd-active{% endif %}"
+               {% if section.settings[t] != blank %}
+               data-src="{{ section.settings[t] | image_url: width: 900 }}"
+               {% endif %}>
+            {% if section.settings[t] != blank %}
+              <img src="{{ section.settings[t] | image_url: width: 200 }}" alt="Product image {{ forloop.index }}">
+            {% else %}
+              <div class="bt-pd-gallery__thumb-placeholder">🪥</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="bt-pd-info">
+
+      <div class="bt-pd-stars">
+        <span>★★★★★</span>
+        <span>4.97 &middot; 5,000+ Happy Parents</span>
+      </div>
+
+      <h1 class="bt-pd-title">{{ section.settings.product_title }}</h1>
+
+      <p class="bt-pd-desc">{{ section.settings.product_description }}</p>
+
+      <div class="bt-pd-price-row">
+        <span class="bt-pd-price">{{ section.settings.price }}</span>
+        <span class="bt-pd-compare">{{ section.settings.compare_price }}</span>
+        <span class="bt-pd-save">{{ section.settings.save_percent }}</span>
+      </div>
+
+      <!-- Age Range -->
+      <div>
+        <div class="bt-pd-label">👶 Age Range</div>
+        <div class="bt-pd-variants" data-group="age-{{ section.id }}">
+          <button class="bt-pd-variant-btn bt-pd-active">Ages 2–6</button>
+          <button class="bt-pd-variant-btn">Ages 6–12</button>
+        </div>
+      </div>
+
+      <!-- Color -->
+      <div>
+        <div class="bt-pd-label">🎨 Color</div>
+        <div class="bt-pd-variants" data-group="color-{{ section.id }}">
+          <button class="bt-pd-variant-btn bt-pd-active">Green</button>
+          <button class="bt-pd-variant-btn">Blue</button>
+          <button class="bt-pd-variant-btn">Pink</button>
+        </div>
+      </div>
+
+      <!-- Subscription Box -->
+      <div class="bt-pd-sub-wrap">
+        <span class="bt-pd-sub-tag">Most Parents Choose This</span>
+        <div class="bt-pd-sub">
+          <p class="bt-pd-sub__title">✅ Automatic Replacement Plan</p>
+          <p class="bt-pd-sub__body">Your toothbrush includes 1 head installed.<br>We'll send 1 spare head for just €1 now, then a fresh replacement head every month.</p>
+          <p class="bt-pd-sub__price">€8.25 / month</p>
+          <p class="bt-pd-sub__save">Save 15% vs buying individually</p>
+          <ul class="bt-pd-sub__checks">
+            <li>✔ Cancel anytime</li>
+            <li>✔ Pause anytime</li>
+            <li>✔ Dentists recommend replacing brush heads every 30 days</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Add to Cart -->
+      <a href="{{ section.settings.button_link }}" class="bt-pd-atc">
+        🛒 Add to Cart — {{ section.settings.price }}
+      </a>
+
+      <div class="bt-pd-trust">
+        <span>📦 Free Shipping</span>
+        <span>○ 30-Day Guarantee</span>
+        <span>↺ Easy Returns</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ 2. THE PROBLEM ═══════════════════════════════ -->
+  <div class="bt-pd-problem">
+    <div class="bt-pd-inner">
+      <span class="bt-pd-pill bt-pd-pill--red">The Problem</span>
+      <h2>Brushing Time = Meltdown Time?</h2>
+      <p>Most kids hate brushing. They squirm, cry, and rush through it — leaving plaque behind and cavities ahead. Traditional toothbrushes weren't designed for little mouths or short attention spans.</p>
+      <div class="bt-pd-problem-tags">
+        <span class="bt-pd-problem-tag">😫 Fights</span>
+        <span class="bt-pd-problem-tag">⏱ Too Long</span>
+        <span class="bt-pd-problem-tag">🦷 Missed Spots</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ 3. THE SOLUTION ═══════════════════════════════ -->
+  <div class="bt-pd-solution">
+    <div class="bt-pd-inner">
+      <span class="bt-pd-pill bt-pd-pill--green">The Solution</span>
+      <h2>What If Brushing Took 60 Seconds<br>— And They <em>Actually Loved It</em>?</h2>
+      <p>Baby Tooth's U-shaped design wraps around all teeth at once. Just bite, press a button, and let the gentle sonic vibrations do the work. Kids think it's a toy. Parents call it a miracle.</p>
+      <a href="{{ section.settings.button_link }}" class="bt-pd-btn">🛒 I Need This</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ 4. HOW IT WORKS ═══════════════════════════════ -->
+  <div class="bt-pd-how">
+    <div class="bt-pd-inner">
+      <h2>How It Works — 3 Simple Steps</h2>
+      <div class="bt-pd-steps">
+        <div class="bt-pd-step">
+          <span class="bt-pd-step__icon">🪥</span>
+          <div class="bt-pd-step__num">1</div>
+          <p class="bt-pd-step__title">Apply Toothpaste</p>
+          <p class="bt-pd-step__desc">Squeeze toothpaste on the U-shaped silicone head. Takes 5 seconds.</p>
+        </div>
+        <div class="bt-pd-step">
+          <span class="bt-pd-step__icon">😮</span>
+          <div class="bt-pd-step__num">2</div>
+          <p class="bt-pd-step__title">Bite &amp; Press</p>
+          <p class="bt-pd-step__desc">Your child bites down and presses the button. The brush does all the work with gentle vibrations.</p>
+        </div>
+        <div class="bt-pd-step">
+          <span class="bt-pd-step__icon">✨</span>
+          <div class="bt-pd-step__num">3</div>
+          <p class="bt-pd-step__title">Done! Sparkling Clean</p>
+          <p class="bt-pd-step__desc">In just 60 seconds, every tooth is cleaned — front, back, and chewing surfaces. No technique needed.</p>
+        </div>
+      </div>
+      <div class="bt-pd-safety">
+        🛡️ 100% safe for kids. Food-grade silicone. BPA-free. Extra-soft bristles. Designed with pediatric dentists.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ 5. REVIEWS ═══════════════════════════════ -->
+  <div class="bt-pd-reviews">
+    <div class="bt-pd-inner">
+      <span class="bt-pd-pill bt-pd-pill--blue">Real Reviews</span>
+      <h2>What Parents Are Saying</h2>
+      <p class="bt-pd-reviews__score"><span>★★★★★</span> 4.94 out of 5</p>
+
+      <div class="bt-pd-carousel-wrap">
+        <div class="bt-pd-carousel" id="bt-pd-carousel-{{ section.id }}">
+
+          <div class="bt-pd-review-card">
+            <div class="bt-pd-review-card__img-placeholder">📦</div>
+            <div class="bt-pd-review-card__body">
+              <div class="bt-pd-review-card__stars">★★★★★</div>
+              <p class="bt-pd-review-card__text">A very good toothbrush, the child liked it, it comes with a charger, thanks to the seller! 👍</p>
+              <div class="bt-pd-review-card__author">
+                <div class="bt-pd-review-card__avatar">A</div>
+                <span>Anonymous</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bt-pd-review-card">
+            <div class="bt-pd-review-card__img-placeholder">🦷</div>
+            <div class="bt-pd-review-card__body">
+              <div class="bt-pd-review-card__stars">★★★★★</div>
+              <p class="bt-pd-review-card__text">My son loves it so much 💙 He runs to the bathroom every night now!</p>
+              <div class="bt-pd-review-card__author">
+                <div class="bt-pd-review-card__avatar">A</div>
+                <span>Anonymous</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bt-pd-review-card">
+            <div class="bt-pd-review-card__img-placeholder">🪥</div>
+            <div class="bt-pd-review-card__body">
+              <div class="bt-pd-review-card__stars">★★★★★</div>
+              <p class="bt-pd-review-card__text">Kids love them and wanted to use them right away. Best purchase I made this year.</p>
+              <div class="bt-pd-review-card__author">
+                <div class="bt-pd-review-card__avatar">A</div>
+                <span>Anonymous</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bt-pd-review-card">
+            <div class="bt-pd-review-card__img-placeholder">✨</div>
+            <div class="bt-pd-review-card__body">
+              <div class="bt-pd-review-card__stars">★★★★★</div>
+              <p class="bt-pd-review-card__text">It really helps my daughter clean her teeth every day by herself. No more fighting!</p>
+              <div class="bt-pd-review-card__author">
+                <div class="bt-pd-review-card__avatar">A</div>
+                <span>Anonymous</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bt-pd-review-card">
+            <div class="bt-pd-review-card__img-placeholder">😊</div>
+            <div class="bt-pd-review-card__body">
+              <div class="bt-pd-review-card__stars">★★★★★</div>
+              <p class="bt-pd-review-card__text">My 5-year-old daughter loves playing with it all day and thinks it's a pacifier. Cleans perfectly!</p>
+              <div class="bt-pd-review-card__author">
+                <div class="bt-pd-review-card__avatar">A</div>
+                <span>Anonymous</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="bt-pd-carousel-btns">
+        <button class="bt-pd-carousel-btn" id="bt-pd-prev-{{ section.id }}">&#8592;</button>
+        <button class="bt-pd-carousel-btn" id="bt-pd-next-{{ section.id }}">&#8594;</button>
+      </div>
+
+      <div class="bt-pd-reviews__cta">
+        <a href="{{ section.settings.button_link }}" class="bt-pd-btn">Join Happy Parents &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ 6. FAQ ═══════════════════════════════ -->
+  <div class="bt-pd-faq">
+    <div class="bt-pd-inner">
+      <h2>Frequently Asked Questions</h2>
+      <div class="bt-pd-faq__list">
+
+        <div class="bt-pd-faq__item">
+          <button class="bt-pd-faq__q">
+            Will my child actually enjoy using this?
+            <svg class="bt-pd-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="bt-pd-faq__a">Yes! The fun animal character design and gentle buzzing vibrations make it feel like a toy. Most kids ask to brush their teeth once they try it.</div>
+        </div>
+
+        <div class="bt-pd-faq__item">
+          <button class="bt-pd-faq__q">
+            Is the U-shaped design effective at cleaning?
+            <svg class="bt-pd-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="bt-pd-faq__a">Absolutely. The U-shape simultaneously cleans all tooth surfaces — front, back, and chewing surfaces — in a single 60-second session. Dentist approved!</div>
+        </div>
+
+        <div class="bt-pd-faq__item">
+          <button class="bt-pd-faq__q">
+            Is it safe for my toddler?
+            <svg class="bt-pd-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="bt-pd-faq__a">Yes. The brush head is made from food-grade silicone, is 100% BPA-free, and features extra-soft bristles. It's designed specifically for children aged 2 and up.</div>
+        </div>
+
+        <div class="bt-pd-faq__item">
+          <button class="bt-pd-faq__q">
+            How often should I replace the brush head?
+            <svg class="bt-pd-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="bt-pd-faq__a">Dentists recommend replacing every 30 days. Our Automatic Replacement Plan sends a fresh head monthly so you never have to remember.</div>
+        </div>
+
+        <div class="bt-pd-faq__item">
+          <button class="bt-pd-faq__q">
+            How long does the battery last?
+            <svg class="bt-pd-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="bt-pd-faq__a">The rechargeable battery lasts approximately 30 days on a single charge with twice-daily use. It comes with a USB charging cable.</div>
+        </div>
+
+        <div class="bt-pd-faq__item">
+          <button class="bt-pd-faq__q">
+            What if my child doesn't like it?
+            <svg class="bt-pd-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="bt-pd-faq__a">We offer a 30-day money-back guarantee — no questions asked. If you and your child aren't completely happy, we'll give you a full refund.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ 7. FINAL CTA ═══════════════════════════════ -->
+  <div class="bt-pd-final">
+    <div class="bt-pd-inner">
+      <h2>Ready to End Brushing Battles?</h2>
+      <p>Join thousands of relieved parents. Your child's smile (and your sanity) will thank you.</p>
+      <a href="{{ section.settings.button_link }}" class="bt-pd-btn">🛒 Get Baby Tooth Now</a>
+      <div class="bt-pd-final__badges">
+        <span>✅ Free Shipping</span>
+        <span>✅ 30-Day Guarantee</span>
+        <span>✅ Cancel Anytime</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var sid = '{{ section.id }}';
+
+  /* ── Thumbnail gallery swap ── */
+  var mainImg = document.getElementById('bt-pd-main-img-' + sid);
+  var thumbs = document.querySelectorAll('#bt-pd-' + sid + ' .bt-pd-gallery__thumb');
+  thumbs.forEach(function(thumb) {
+    thumb.addEventListener('click', function() {
+      var src = this.getAttribute('data-src');
+      if (src && mainImg) { mainImg.src = src; }
+      thumbs.forEach(function(t) { t.classList.remove('bt-pd-active'); });
+      this.classList.add('bt-pd-active');
+    });
+  });
+
+  /* ── Variant pill toggles ── */
+  var variantGroups = document.querySelectorAll('#bt-pd-' + sid + ' .bt-pd-variants');
+  variantGroups.forEach(function(group) {
+    group.querySelectorAll('.bt-pd-variant-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        group.querySelectorAll('.bt-pd-variant-btn').forEach(function(b) {
+          b.classList.remove('bt-pd-active');
+        });
+        this.classList.add('bt-pd-active');
+      });
+    });
+  });
+
+  /* ── FAQ accordion ── */
+  var faqItems = document.querySelectorAll('#bt-pd-' + sid + ' .bt-pd-faq__item');
+  faqItems.forEach(function(item) {
+    item.querySelector('.bt-pd-faq__q').addEventListener('click', function() {
+      var isOpen = item.classList.contains('bt-pd-open');
+      faqItems.forEach(function(i) { i.classList.remove('bt-pd-open'); });
+      if (!isOpen) { item.classList.add('bt-pd-open'); }
+    });
+  });
+
+  /* ── Review carousel ── */
+  var carousel = document.getElementById('bt-pd-carousel-' + sid);
+  var prevBtn = document.getElementById('bt-pd-prev-' + sid);
+  var nextBtn = document.getElementById('bt-pd-next-' + sid);
+  if (carousel && prevBtn && nextBtn) {
+    var current = 0;
+    var cards = carousel.querySelectorAll('.bt-pd-review-card');
+    var total = cards.length;
+    function getVisible() {
+      return window.innerWidth <= 768 ? 1 : 3;
+    }
+    function update() {
+      var visible = getVisible();
+      var maxIndex = Math.max(0, total - visible);
+      if (current > maxIndex) current = maxIndex;
+      var cardWidth = carousel.parentElement.offsetWidth / visible;
+      carousel.style.transform = 'translateX(-' + (current * cardWidth) + 'px)';
+      cards.forEach(function(c) { c.style.minWidth = cardWidth - 20 + 'px'; });
+    }
+    prevBtn.addEventListener('click', function() { if (current > 0) { current--; update(); } });
+    nextBtn.addEventListener('click', function() {
+      var visible = getVisible();
+      if (current < total - visible) { current++; update(); }
+    });
+    window.addEventListener('resize', update);
+    update();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BT Product Page",
+  "tag": "section",
+  "class": "bt-product-page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Info"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Product Title",
+      "default": "Kids Electric Toothbrush"
+    },
+    {
+      "type": "textarea",
+      "id": "product_description",
+      "label": "Product Description",
+      "default": "The U-shaped electric toothbrush that makes kids beg to brush. 60-second full clean. Zero tears. Pure relief for you."
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Sale Price",
+      "default": "€24.99"
+    },
+    {
+      "type": "text",
+      "id": "compare_price",
+      "label": "Original Price (crossed out)",
+      "default": "€35.00"
+    },
+    {
+      "type": "text",
+      "id": "save_percent",
+      "label": "Save Badge Text",
+      "default": "SAVE 29%"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Add to Cart / CTA Link"
+    },
+    {
+      "type": "header",
+      "content": "Product Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Product Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "thumb_1",
+      "label": "Thumbnail 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "thumb_2",
+      "label": "Thumbnail 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "thumb_3",
+      "label": "Thumbnail 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "thumb_4",
+      "label": "Thumbnail 4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BT Product Page"
+    }
+  ]
+}
+{% endschema %}
