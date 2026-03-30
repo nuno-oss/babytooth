@@ -81,32 +81,51 @@
   .bt-pd-variant-btn.bt-pd-active { border-color: #4D9BCB; background: #F3F8FC; color: #4D9BCB; }
   .bt-pd-variant-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* ── Purchase options (Loop Subscriptions) ── */
-  .bt-pd-purchase-opts { display: flex; flex-direction: column; gap: 10px; }
-  .bt-pd-purchase-opt {
-    position: relative; border: 2px solid #d1d5db; border-radius: 16px;
-    padding: 16px 16px 16px 48px; cursor: pointer;
-    transition: border-color 0.15s, background 0.15s; background: #fff;
-    display: block;
+  /* ── Subscription box (single-box design) ── */
+  .bt-pd-sub-wrap {
+    position: relative;
+    border: 2px solid #4D9BCB;
+    border-radius: 16px;
+    padding: 20px 20px 16px 20px;
+    background: #f0f8ff;
   }
-  .bt-pd-purchase-opt:hover { border-color: #4D9BCB; }
-  .bt-pd-purchase-opt.bt-pd-active { border-color: #4D9BCB; background: #f0f8ff; }
-  .bt-pd-purchase-opt input[type="radio"] {
-    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-    accent-color: #4D9BCB; width: 18px; height: 18px; cursor: pointer;
-  }
-  .bt-pd-purchase-opt__tag {
-    position: absolute; top: -10px; left: 12px;
+  .bt-pd-sub-tag {
+    position: absolute; top: -11px; left: 14px;
     background: #4D9BCB; color: #fff; font-size: 0.62rem; font-weight: 800;
-    letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px;
+    letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px;
   }
-  .bt-pd-purchase-opt__title { font-size: 0.95rem; font-weight: 800; color: #1A2D3D; margin-bottom: 2px; }
-  .bt-pd-purchase-opt__price { font-size: 1rem; font-weight: 900; color: #1A2D3D; }
-  .bt-pd-purchase-opt__price s { font-weight: 600; color: #9ca3af; font-size: 0.85rem; margin-left: 6px; }
-  .bt-pd-purchase-opt__save { display: inline-block; background: #dcfce7; color: #16a34a; font-size: 0.7rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; margin-left: 6px; vertical-align: middle; }
-  .bt-pd-purchase-opt__detail { font-size: 0.78rem; color: #4a5568; margin-top: 2px; }
-  .bt-pd-sub__checks { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
-  .bt-pd-sub__checks li { font-size: 0.78rem; color: #16a34a; font-weight: 700; }
+  .bt-pd-sub__header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+  }
+  .bt-pd-sub__check {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: #4D9BCB; color: #fff; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+  }
+  .bt-pd-sub__title { font-size: 1.05rem; font-weight: 900; color: #1A2D3D; margin: 0; }
+  .bt-pd-sub__body { font-size: 0.82rem; color: #718096; line-height: 1.6; margin: 0 0 10px; padding-left: 38px; }
+  .bt-pd-sub__price-row { display: flex; align-items: center; gap: 8px; padding-left: 38px; margin-bottom: 4px; flex-wrap: wrap; }
+  .bt-pd-sub__price { font-size: 1rem; font-weight: 900; color: #1A2D3D; }
+  .bt-pd-sub__compare { font-size: 0.85rem; color: #9ca3af; text-decoration: line-through; font-weight: 600; }
+  .bt-pd-sub__save-badge { background: #dcfce7; color: #16a34a; font-size: 0.7rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; }
+  .bt-pd-sub__detail { font-size: 0.78rem; color: #4a5568; padding-left: 38px; margin-bottom: 8px; }
+  .bt-pd-sub__save-text { font-size: 0.85rem; font-weight: 800; color: #1A2D3D; padding-left: 38px; margin-bottom: 8px; }
+  .bt-pd-sub__checks { list-style: none; margin: 0; padding: 0 0 0 38px; display: flex; flex-direction: column; gap: 3px; }
+  .bt-pd-sub__checks li { font-size: 0.8rem; color: #16a34a; font-weight: 700; }
+
+  /* One-time toggle link */
+  .bt-pd-onetime-link {
+    text-align: center; font-size: 0.8rem; color: #718096;
+  }
+  .bt-pd-onetime-link button {
+    background: none; border: none; color: #4D9BCB; font-weight: 700;
+    cursor: pointer; font-size: 0.8rem; text-decoration: underline; padding: 0; font-family: inherit;
+  }
+  .bt-pd-onetime-link button:hover { color: #3F8FBE; }
+  /* When one-time is active, dim the sub box and show different link */
+  .bt-pd-sub-wrap.bt-pd-onetime-active {
+    border-color: #d1d5db; background: #f9fafb; opacity: 0.7;
+  }
 
   /* Add to Cart */
   .bt-pd-atc-form { display: contents; }
@@ -306,39 +325,42 @@
           </div>
         {%- endfor -%}
 
-        <!-- Purchase Options (Loop Subscriptions) -->
-        <div class="bt-pd-purchase-opts" id="bt-pd-purchase-opts-{{ section.id }}">
+        <!-- Subscription Box (active by default) -->
+        <div class="bt-pd-sub-wrap" id="bt-pd-sub-wrap-{{ section.id }}">
+          <span class="bt-pd-sub-tag">Most Parents Choose This</span>
 
-          <!-- One-time -->
-          <label class="bt-pd-purchase-opt bt-pd-active" data-type="onetime" id="bt-pd-opt-onetime-{{ section.id }}">
-            <input type="radio" name="bt_purchase_{{ section.id }}" value="onetime" checked>
-            <div class="bt-pd-purchase-opt__title">One-Time Purchase</div>
-            <div class="bt-pd-purchase-opt__price">
-              <span id="bt-pd-onetime-val-{{ section.id }}">{{ current_variant.price | money }}</span>
-              {%- if has_compare -%}
-                <s id="bt-pd-onetime-compare-{{ section.id }}">{{ current_variant.compare_at_price | money }}</s>
-              {%- endif -%}
-            </div>
-          </label>
+          <div class="bt-pd-sub__header">
+            <div class="bt-pd-sub__check">✓</div>
+            <p class="bt-pd-sub__title" id="bt-pd-sub-name-{{ section.id }}">Automatic Replacement Plan</p>
+          </div>
 
-          <!-- Subscribe (JS-populated from variant.selling_plan_allocations) -->
-          <label class="bt-pd-purchase-opt" data-type="subscribe" id="bt-pd-opt-sub-{{ section.id }}">
-            <span class="bt-pd-purchase-opt__tag">Most Parents Choose This</span>
-            <input type="radio" name="bt_purchase_{{ section.id }}" value="subscribe">
-            <div class="bt-pd-purchase-opt__title" id="bt-pd-sub-name-{{ section.id }}">Subscribe &amp; Save</div>
-            <div class="bt-pd-purchase-opt__price">
-              <span id="bt-pd-sub-price-{{ section.id }}">—</span>
-              <s id="bt-pd-sub-compare-{{ section.id }}" style="display:none"></s>
-              <span class="bt-pd-purchase-opt__save" id="bt-pd-sub-save-{{ section.id }}" style="display:none"></span>
-            </div>
-            <div class="bt-pd-purchase-opt__detail" id="bt-pd-sub-detail-{{ section.id }}"></div>
-            <ul class="bt-pd-sub__checks">
-              <li>✔ Cancel anytime in your account</li>
-              <li>✔ Pause or skip deliveries anytime</li>
-              <li>✔ Dentists recommend new heads every 30 days</li>
-            </ul>
-          </label>
+          <p class="bt-pd-sub__body">
+            Your toothbrush includes 1 head installed.<br>
+            We'll send 1 spare head for just €1 now, then a fresh replacement head every month.
+          </p>
 
+          <div class="bt-pd-sub__price-row">
+            <span class="bt-pd-sub__price" id="bt-pd-sub-price-{{ section.id }}">—</span>
+            <span class="bt-pd-sub__compare" id="bt-pd-sub-compare-{{ section.id }}" style="display:none"></span>
+            <span class="bt-pd-sub__save-badge" id="bt-pd-sub-save-{{ section.id }}" style="display:none"></span>
+          </div>
+
+          <div class="bt-pd-sub__detail" id="bt-pd-sub-detail-{{ section.id }}"></div>
+
+          <p class="bt-pd-sub__save-text">Save 15% vs buying individually</p>
+
+          <ul class="bt-pd-sub__checks">
+            <li>✔ Cancel anytime</li>
+            <li>✔ Pause anytime</li>
+            <li>✔ Dentists recommend replacing brush heads every 30 days</li>
+          </ul>
+        </div>
+
+        <!-- One-time toggle -->
+        <div class="bt-pd-onetime-link" id="bt-pd-onetime-row-{{ section.id }}">
+          <span id="bt-pd-onetime-label-{{ section.id }}">
+            or <button type="button" id="bt-pd-onetime-btn-{{ section.id }}">buy one-time for <span id="bt-pd-onetime-val-{{ section.id }}">{{ current_variant.price | money }}</span></button>
+          </span>
         </div>
 
         <!-- Add to Cart Form -->
@@ -570,42 +592,64 @@
     }
   }
 
-  /* ── Selling plan allocations (from Loop) ── */
-  var allocations = window['btPdAllocations_' + sid] || {};
+  /* ── Loop selling plan allocations ── */
+  var allocations   = window['btPdAllocations_' + sid] || {};
   var sellingPlanInput = document.getElementById('bt-pd-selling-plan-' + sid);
-  var subOpt = document.getElementById('bt-pd-opt-sub-' + sid);
-  var optOnetime = document.getElementById('bt-pd-opt-onetime-' + sid);
+  var subWrap       = document.getElementById('bt-pd-sub-wrap-' + sid);
+  var onetimeBtn    = document.getElementById('bt-pd-onetime-btn-' + sid);
+  var onetimeRow    = document.getElementById('bt-pd-onetime-row-' + sid);
+  var onetimeVal    = document.getElementById('bt-pd-onetime-val-' + sid);
+  var isSubscribe   = true; /* subscription active by default */
 
-  /* Update subscribe option UI for the current variant's allocation */
+  function setSubscribeMode(subscribe) {
+    isSubscribe = subscribe;
+    var v = findVariant();
+    var varAllocs = v ? (allocations[String(v.id)] || []) : [];
+
+    if (subscribe && varAllocs[0]) {
+      /* Subscribe mode */
+      if (subWrap)  subWrap.classList.remove('bt-pd-onetime-active');
+      if (sellingPlanInput) sellingPlanInput.value = varAllocs[0].id;
+      if (atcPrice) atcPrice.textContent = money(varAllocs[0].per_delivery_price);
+      if (onetimeBtn) onetimeBtn.innerHTML = 'buy one-time for <span id="bt-pd-onetime-val-' + sid + '">' + money(v ? v.price : 0) + '</span>';
+    } else {
+      /* One-time mode */
+      if (subWrap)  subWrap.classList.add('bt-pd-onetime-active');
+      if (sellingPlanInput) sellingPlanInput.value = '';
+      if (atcPrice) atcPrice.textContent = money(v ? v.price : 0);
+      if (onetimeBtn) onetimeBtn.innerHTML = 'switch to subscription';
+    }
+  }
+
+  /* Update sub box content for current variant's allocation */
   function updateSubOption() {
     var v = findVariant();
     if (!v) return;
 
     var varAllocs = allocations[String(v.id)] || [];
 
+    /* Update one-time price in link */
+    var ovEl = document.getElementById('bt-pd-onetime-val-' + sid);
+    if (ovEl) ovEl.textContent = money(v.price);
+
     if (varAllocs.length === 0) {
-      /* No subscription available for this variant — hide subscribe option */
-      if (subOpt) { subOpt.style.display = 'none'; }
-      /* Switch back to one-time if subscribe was active */
+      /* No subscription for this variant — hide sub box, force one-time */
+      if (subWrap)  subWrap.style.display = 'none';
+      if (onetimeRow) onetimeRow.style.display = 'none';
       if (sellingPlanInput) sellingPlanInput.value = '';
-      setActiveOpt(optOnetime);
       if (atcPrice) atcPrice.textContent = money(v.price);
       return;
     }
 
-    /* Show subscribe option */
-    if (subOpt) subOpt.style.display = '';
+    if (subWrap)  subWrap.style.display = '';
+    if (onetimeRow) onetimeRow.style.display = '';
     var alloc = varAllocs[0];
-
-    /* Name */
-    var nameEl = document.getElementById('bt-pd-sub-name-' + sid);
-    if (nameEl) nameEl.textContent = alloc.name;
 
     /* Price per delivery */
     var priceEl = document.getElementById('bt-pd-sub-price-' + sid);
     if (priceEl) priceEl.textContent = money(alloc.per_delivery_price);
 
-    /* Compare / save */
+    /* Compare + save badge */
     var compareEl = document.getElementById('bt-pd-sub-compare-' + sid);
     var saveEl    = document.getElementById('bt-pd-sub-save-' + sid);
     if (alloc.compare_at_price && alloc.compare_at_price > alloc.per_delivery_price) {
@@ -626,45 +670,24 @@
       detailEl.textContent = 'Delivered ' + alloc.options[0].value.toLowerCase();
     }
 
-    /* If subscribe is currently selected, update selling_plan + ATC price */
-    if (subOpt && subOpt.classList.contains('bt-pd-active')) {
-      if (sellingPlanInput) sellingPlanInput.value = alloc.id;
-      if (atcPrice) atcPrice.textContent = money(alloc.per_delivery_price);
-    }
-
-    /* Also update one-time price */
-    var onetimeVal = document.getElementById('bt-pd-onetime-val-' + sid);
-    if (onetimeVal) onetimeVal.textContent = money(v.price);
+    /* Apply current mode (sub or one-time) */
+    setSubscribeMode(isSubscribe);
   }
 
-  /* Set active purchase option */
-  function setActiveOpt(el) {
-    [optOnetime, subOpt].forEach(function(o) { if (o) o.classList.remove('bt-pd-active'); });
-    if (el) {
-      el.classList.add('bt-pd-active');
-      var r = el.querySelector('input[type="radio"]');
-      if (r) r.checked = true;
-    }
-  }
-
-  /* Purchase option click */
-  [optOnetime, subOpt].forEach(function(opt) {
-    if (!opt) return;
-    opt.addEventListener('click', function() {
-      setActiveOpt(this);
-      var v = findVariant();
-      if (this.dataset.type === 'onetime') {
-        if (sellingPlanInput) sellingPlanInput.value = '';
-        if (atcPrice) atcPrice.textContent = money(v ? v.price : 0);
-      } else {
-        var varAllocs = v ? (allocations[String(v.id)] || []) : [];
-        if (varAllocs[0]) {
-          if (sellingPlanInput) sellingPlanInput.value = varAllocs[0].id;
-          if (atcPrice) atcPrice.textContent = money(varAllocs[0].per_delivery_price);
-        }
-      }
+  /* One-time / subscribe toggle button */
+  if (onetimeBtn) {
+    onetimeBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      setSubscribeMode(!isSubscribe);
     });
-  });
+  }
+
+  /* Clicking the sub box when in one-time mode → re-activate subscribe */
+  if (subWrap) {
+    subWrap.addEventListener('click', function() {
+      if (!isSubscribe) setSubscribeMode(true);
+    });
+  }
 
   /* ── Variant option button clicks ── */
   optionGroups.forEach(function(group) {
@@ -674,12 +697,12 @@
         this.classList.add('bt-pd-active');
         selectedOptions[parseInt(group.dataset.optionIndex)] = this.dataset.value;
         updateVariant();
-        updateSubOption(); /* sync subscription to new variant's selling plan */
+        updateSubOption();
       });
     });
   });
 
-  /* Run on load */
+  /* Run on load — subscription active by default */
   updateSubOption();
 
   /* ── Thumbnail gallery swap ── */
