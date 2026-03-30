@@ -1,211 +1,453 @@
-<!-- Baby Tooth — Hero Landing Section -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          brand: {
-            primary:    '#4D9BCB',
-            accent:     '#3F8FBE',
-            bg:         '#F3F8FC',
-            text:       '#1A2D3D',
-            secondary:  '#EDF2F7',
-            mint:       '#7BCFB8',
-            yellow:     '#F9E97E',
-          }
-        },
-        fontFamily: {
-          sans: ['"Nunito"', 'ui-rounded', 'system-ui', 'sans-serif'],
-        }
-      }
-    }
+<!-- Baby Tooth — Hero Landing Section (Scoped Pure CSS) -->
+<style>
+  #bt-hero-{{ section.id }} {
+    font-family: 'Nunito', 'Helvetica Neue', Arial, sans-serif;
+    color: #1A2D3D;
+    background: #F3F8FC;
+    box-sizing: border-box;
   }
-</script>
+  #bt-hero-{{ section.id }} *,
+  #bt-hero-{{ section.id }} *::before,
+  #bt-hero-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  /* ── Announcement Bar ── */
+  .bt-announce {
+    background: #4D9BCB;
+    color: #fff;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    padding: 10px 16px;
+  }
+
+  /* ── Inner wrapper ── */
+  .bt-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ── Hero Block ── */
+  .bt-hero {
+    padding: 60px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .bt-hero__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .bt-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #EDF2F7;
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #1A2D3D;
+    width: fit-content;
+  }
+  .bt-pill .bt-stars { color: #f59e0b; font-size: 1rem; }
+  .bt-hero__heading {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.2;
+    color: #1A2D3D;
+    margin: 0;
+  }
+  .bt-hero__sub {
+    font-size: 1.05rem;
+    color: #4a5568;
+    line-height: 1.7;
+    margin: 0;
+  }
+  .bt-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .bt-btn-primary {
+    display: inline-block;
+    background: #4D9BCB;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 14px 30px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    border: 2px solid #4D9BCB;
+  }
+  .bt-btn-primary:hover { background: #3F8FBE; border-color: #3F8FBE; transform: translateY(-2px); color: #fff; }
+  .bt-btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: #4D9BCB;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 14px 30px;
+    border-radius: 999px;
+    border: 2px solid #4D9BCB;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .bt-btn-secondary:hover { background: #4D9BCB; color: #fff; }
+  .bt-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #4a5568;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .bt-badges li { display: flex; align-items: center; gap: 4px; }
+
+  /* ── Hero Image ── */
+  .bt-hero__img-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .bt-hero__img {
+    width: 100%;
+    max-width: 460px;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    object-fit: cover;
+    display: block;
+  }
+  .bt-hero__placeholder {
+    width: 100%;
+    max-width: 460px;
+    aspect-ratio: 1;
+    background: #EDF2F7;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #4D9BCB;
+    opacity: 0.6;
+    font-size: 0.85rem;
+    font-weight: 600;
+    gap: 12px;
+  }
+  .bt-badge-float {
+    position: absolute;
+    bottom: -16px;
+    left: 0px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    padding: 12px 16px;
+    text-align: center;
+  }
+  .bt-badge-float__num { font-size: 1.6rem; font-weight: 900; color: #4D9BCB; line-height: 1; }
+  .bt-badge-float__label { font-size: 0.7rem; font-weight: 700; color: #718096; line-height: 1.3; }
+
+  /* ── Feature Row ── */
+  .bt-features {
+    background: #fff;
+    border-top: 1px solid #EDF2F7;
+    border-bottom: 1px solid #EDF2F7;
+    padding: 48px 20px;
+  }
+  .bt-features__grid {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+  .bt-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+  }
+  .bt-feature + .bt-feature { border-left: 1px solid #EDF2F7; }
+  .bt-feature__icon {
+    width: 56px;
+    height: 56px;
+    background: #F3F8FC;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+  }
+  .bt-feature__title { font-weight: 800; font-size: 0.95rem; color: #1A2D3D; margin: 0; }
+  .bt-feature__desc { font-size: 0.82rem; color: #718096; margin: 0; line-height: 1.5; }
+
+  /* ── Product Strip ── */
+  .bt-products {
+    padding: 64px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .bt-products__title {
+    text-align: center;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 900;
+    color: #1A2D3D;
+    margin: 0 0 8px;
+  }
+  .bt-products__sub {
+    text-align: center;
+    color: #718096;
+    font-size: 0.9rem;
+    margin: 0 0 40px;
+  }
+  .bt-products__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .bt-card {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s;
+  }
+  .bt-card:hover { box-shadow: 0 10px 40px rgba(0,0,0,0.13); }
+  .bt-card__img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .bt-card__placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: #EDF2F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
+  .bt-card__body { padding: 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .bt-card__name { font-weight: 800; font-size: 0.95rem; color: #1A2D3D; margin: 0; }
+  .bt-card__price { font-weight: 900; font-size: 1.2rem; color: #4D9BCB; margin: 0; }
+  .bt-card__btn {
+    display: block;
+    background: #4D9BCB;
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.9rem;
+    padding: 12px 20px;
+    border-radius: 999px;
+    text-align: center;
+    text-decoration: none;
+    margin-top: auto;
+    transition: background 0.2s;
+  }
+  .bt-card__btn:hover { background: #3F8FBE; color: #fff; }
+
+  /* ── Bottom CTA ── */
+  .bt-cta-strip {
+    background: #4D9BCB;
+    color: #fff;
+    text-align: center;
+    padding: 72px 20px;
+  }
+  .bt-cta-strip__eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin: 0 0 12px;
+  }
+  .bt-cta-strip__title {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 900;
+    line-height: 1.25;
+    margin: 0 0 16px;
+  }
+  .bt-cta-strip__body {
+    font-size: 1rem;
+    opacity: 0.9;
+    max-width: 520px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .bt-cta-strip__btn {
+    display: inline-block;
+    background: #fff;
+    color: #4D9BCB;
+    font-weight: 900;
+    font-size: 1rem;
+    padding: 16px 40px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .bt-cta-strip__btn:hover { background: #F3F8FC; color: #4D9BCB; }
+  .bt-cta-strip__fine {
+    margin: 16px 0 0;
+    font-size: 0.8rem;
+    opacity: 0.75;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .bt-hero { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px 60px; }
+    .bt-hero__img-wrap { order: -1; }
+    .bt-badge-float { display: none; }
+    .bt-features__grid { grid-template-columns: 1fr; }
+    .bt-feature + .bt-feature { border-left: none; border-top: 1px solid #EDF2F7; }
+    .bt-products__grid { grid-template-columns: 1fr; max-width: 360px; }
+    .bt-cta-row { flex-direction: column; }
+    .bt-btn-primary, .bt-btn-secondary { text-align: center; }
+  }
+</style>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-<div id="bt-hero-{{ section.id }}" class="font-sans bg-brand-bg text-brand-text">
+<div id="bt-hero-{{ section.id }}">
 
-  <!-- ── Announcement Bar ── -->
-  <div class="bg-brand-primary text-white text-center text-sm font-semibold py-2 px-4">
+  <!-- Announcement Bar -->
+  <div class="bt-announce">
     {{ section.settings.announcement_text }}
   </div>
 
-  <!-- ── Navigation ── -->
-  <nav class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2 no-underline">
-        <span class="text-2xl font-black text-brand-primary tracking-tight">🦷 Baby Tooth</span>
-      </a>
-      <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-brand-text">
-        <a href="{{ section.settings.button_link }}" class="hover:text-brand-primary transition-colors no-underline">Shop</a>
+  <!-- Hero Block -->
+  <div class="bt-hero">
+
+    <!-- Left: Copy -->
+    <div class="bt-hero__copy">
+      <div class="bt-pill">
+        <span class="bt-stars">★★★★★</span>
+        <span>4.97/5 &middot; 5,000+ happy moms &middot; Ages 2&ndash;12</span>
+      </div>
+
+      <h1 class="bt-hero__heading">{{ section.settings.heading }}</h1>
+
+      <p class="bt-hero__sub">{{ section.settings.subheading }}</p>
+
+      <div class="bt-cta-row">
+        <a href="{{ section.settings.button_link }}" class="bt-btn-primary">
+          {{ section.settings.button_label }}
+        </a>
+        <a href="{{ section.settings.secondary_button_link }}" class="bt-btn-secondary">
+          {{ section.settings.secondary_button_label }}
+        </a>
+      </div>
+
+      <ul class="bt-badges">
+        <li>✅ Free Shipping</li>
+        <li>✅ 30-Day Guarantee</li>
+        <li>✅ Dentist Recommended</li>
+      </ul>
+    </div>
+
+    <!-- Right: Image -->
+    <div class="bt-hero__img-wrap">
+      {% if section.settings.hero_image != blank %}
+        {{ section.settings.hero_image | image_url: width: 900 | image_tag:
+          class: 'bt-hero__img',
+          alt: section.settings.heading,
+          loading: 'eager' }}
+      {% else %}
+        <div class="bt-hero__placeholder">
+          <svg width="64" height="64" fill="none" viewBox="0 0 24 24" stroke="#4D9BCB" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>Add hero image in Customizer</span>
+        </div>
+      {% endif %}
+      <div class="bt-badge-float">
+        <div class="bt-badge-float__num">60s</div>
+        <div class="bt-badge-float__label">All teeth<br>cleaned</div>
       </div>
     </div>
-  </nav>
 
-  <!-- ── Hero Block ── -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-20">
-    <div class="grid md:grid-cols-2 gap-10 items-center">
+  </div>
 
-      <!-- Left: Copy -->
-      <div class="flex flex-col gap-5">
-
-        <!-- Social proof pill -->
-        <div class="inline-flex items-center gap-2 bg-brand-secondary rounded-full px-4 py-2 text-sm font-semibold text-brand-text w-fit">
-          <span class="text-yellow-400">★★★★★</span>
-          <span>4.97/5 · 5,000+ happy moms · Ages 2–12</span>
-        </div>
-
-        <!-- Headline -->
-        <h1 class="text-4xl md:text-5xl font-black leading-tight text-brand-text">
-          {{ section.settings.heading }}
-        </h1>
-
-        <!-- Subtext -->
-        <p class="text-lg text-gray-600 leading-relaxed">
-          {{ section.settings.subheading }}
-        </p>
-
-        <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-3 mt-2">
-          <a href="{{ section.settings.button_link }}"
-             class="inline-block bg-brand-primary hover:bg-brand-accent text-white font-bold text-lg px-8 py-4 rounded-full text-center transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 no-underline">
-            {{ section.settings.button_label }}
-          </a>
-          <a href="{{ section.settings.secondary_button_link | default: '#' }}"
-             class="inline-block border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white font-bold text-lg px-8 py-4 rounded-full text-center transition-all no-underline">
-            {{ section.settings.secondary_button_label }}
-          </a>
-        </div>
-
-        <!-- Trust badges -->
-        <div class="flex flex-wrap gap-4 mt-2 text-sm font-semibold text-gray-600">
-          <span class="flex items-center gap-1">✅ Free Shipping</span>
-          <span class="flex items-center gap-1">✅ 30-Day Guarantee</span>
-          <span class="flex items-center gap-1">✅ Dentist Recommended</span>
-        </div>
+  <!-- Feature Icons Row -->
+  <div class="bt-features">
+    <div class="bt-features__grid">
+      <div class="bt-feature">
+        <div class="bt-feature__icon">🦷</div>
+        <p class="bt-feature__title">360° Clean in Seconds</p>
+        <p class="bt-feature__desc">U-shape wraps every tooth — front, back, and sides at once.</p>
       </div>
-
-      <!-- Right: Hero Image -->
-      <div class="relative flex justify-center">
-        {% if section.settings.hero_image != blank %}
-          {{ section.settings.hero_image | image_url: width: 800 | image_tag:
-            class: 'w-full max-w-md rounded-3xl shadow-2xl object-cover',
-            alt: section.settings.heading,
-            loading: 'eager' }}
-        {% else %}
-          <div class="w-full max-w-md aspect-square bg-brand-secondary rounded-3xl flex flex-col items-center justify-center text-brand-primary opacity-60">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-            </svg>
-            <p class="text-sm font-semibold">Add hero image in Customizer</p>
-          </div>
-        {% endif %}
-
-        <!-- Floating badge -->
-        <div class="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-4 py-3 text-center hidden md:block">
-          <div class="text-2xl font-black text-brand-primary">60s</div>
-          <div class="text-xs font-semibold text-gray-500 leading-tight">All teeth<br>cleaned</div>
-        </div>
+      <div class="bt-feature">
+        <div class="bt-feature__icon">👨‍⚕️</div>
+        <p class="bt-feature__title">Dentist Approved</p>
+        <p class="bt-feature__desc">Medical-grade silicone. BPA-free. Pediatric-dentist recommended.</p>
       </div>
-
-    </div>
-  </section>
-
-  <!-- ── Feature Icons Row ── -->
-  <section class="bg-white py-10 border-y border-brand-secondary">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-
-        <div class="flex flex-col items-center gap-3 p-4">
-          <div class="w-14 h-14 bg-brand-bg rounded-full flex items-center justify-center text-3xl">🦷</div>
-          <h3 class="font-bold text-brand-text">360° Clean in Seconds</h3>
-          <p class="text-sm text-gray-500">U-shape wraps every tooth — front, back, and sides at once.</p>
-        </div>
-
-        <div class="flex flex-col items-center gap-3 p-4 border-y sm:border-y-0 sm:border-x border-brand-secondary">
-          <div class="w-14 h-14 bg-brand-bg rounded-full flex items-center justify-center text-3xl">👨‍⚕️</div>
-          <h3 class="font-bold text-brand-text">Dentist Approved</h3>
-          <p class="text-sm text-gray-500">Medical-grade silicone. BPA-free. Pediatric-dentist recommended.</p>
-        </div>
-
-        <div class="flex flex-col items-center gap-3 p-4">
-          <div class="w-14 h-14 bg-brand-bg rounded-full flex items-center justify-center text-3xl">⚡</div>
-          <h3 class="font-bold text-brand-text">Kids Actually Love It</h3>
-          <p class="text-sm text-gray-500">Cute animal design + gentle vibrations = a brush they beg to use.</p>
-        </div>
-
+      <div class="bt-feature">
+        <div class="bt-feature__icon">⚡</div>
+        <p class="bt-feature__title">Kids Actually Love It</p>
+        <p class="bt-feature__desc">Cute animal design + gentle vibrations = a brush they beg to use.</p>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ── Product Strip ── -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-14">
-    <h2 class="text-3xl font-black text-center text-brand-text mb-2">
-      Choose What's Right for Your Child
-    </h2>
-    <p class="text-center text-gray-500 mb-10">Available for ages 2–6 and 6–12. Multiple fun colors!</p>
+  <!-- Product Strip -->
+  <div class="bt-products">
+    <h2 class="bt-products__title">Choose What's Right for Your Child</h2>
+    <p class="bt-products__sub">Available for ages 2–6 and 6–12. Multiple fun colors!</p>
 
-    <div class="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+    <div class="bt-products__grid">
 
       <!-- Product 1 -->
-      <div class="bg-white rounded-3xl shadow-md overflow-hidden flex flex-col transition-shadow hover:shadow-xl">
+      <div class="bt-card">
         {% if section.settings.product_image_1 != blank %}
           {{ section.settings.product_image_1 | image_url: width: 600 | image_tag:
-            class: 'w-full aspect-square object-cover',
+            class: 'bt-card__img',
             alt: section.settings.product_name_1 }}
         {% else %}
-          <div class="w-full aspect-square bg-brand-secondary flex items-center justify-center text-5xl">🪥</div>
+          <div class="bt-card__placeholder">🪥</div>
         {% endif %}
-        <div class="p-5 flex flex-col gap-3 flex-1">
-          <h3 class="font-bold text-lg text-brand-text">{{ section.settings.product_name_1 }}</h3>
-          <p class="text-brand-primary font-black text-xl">{{ section.settings.product_price_1 }}</p>
-          <a href="{{ section.settings.product_link_1 }}"
-             class="mt-auto bg-brand-primary hover:bg-brand-accent text-white font-bold py-3 px-6 rounded-full text-center transition-colors no-underline">
-            Add to Cart
-          </a>
+        <div class="bt-card__body">
+          <p class="bt-card__name">{{ section.settings.product_name_1 }}</p>
+          <p class="bt-card__price">{{ section.settings.product_price_1 }}</p>
+          <a href="{{ section.settings.product_link_1 }}" class="bt-card__btn">Add to Cart</a>
         </div>
       </div>
 
       <!-- Product 2 -->
-      <div class="bg-white rounded-3xl shadow-md overflow-hidden flex flex-col transition-shadow hover:shadow-xl">
+      <div class="bt-card">
         {% if section.settings.product_image_2 != blank %}
           {{ section.settings.product_image_2 | image_url: width: 600 | image_tag:
-            class: 'w-full aspect-square object-cover',
+            class: 'bt-card__img',
             alt: section.settings.product_name_2 }}
         {% else %}
-          <div class="w-full aspect-square bg-brand-secondary flex items-center justify-center text-5xl">🔄</div>
+          <div class="bt-card__placeholder">🔄</div>
         {% endif %}
-        <div class="p-5 flex flex-col gap-3 flex-1">
-          <h3 class="font-bold text-lg text-brand-text">{{ section.settings.product_name_2 }}</h3>
-          <p class="text-brand-primary font-black text-xl">{{ section.settings.product_price_2 }}</p>
-          <a href="{{ section.settings.product_link_2 }}"
-             class="mt-auto bg-brand-primary hover:bg-brand-accent text-white font-bold py-3 px-6 rounded-full text-center transition-colors no-underline">
-            Add to Cart
-          </a>
+        <div class="bt-card__body">
+          <p class="bt-card__name">{{ section.settings.product_name_2 }}</p>
+          <p class="bt-card__price">{{ section.settings.product_price_2 }}</p>
+          <a href="{{ section.settings.product_link_2 }}" class="bt-card__btn">Add to Cart</a>
         </div>
       </div>
 
     </div>
-  </section>
+  </div>
 
-  <!-- ── Bottom CTA Strip ── -->
-  <section class="bg-brand-primary py-14 text-white text-center px-4">
-    <p class="text-sm font-semibold uppercase tracking-widest mb-3 opacity-80">Join 5,000+ Happy Families</p>
-    <h2 class="text-3xl md:text-4xl font-black mb-4 leading-tight">
-      Tonight Could Be the Last Night<br>You Fight Over Brushing
-    </h2>
-    <p class="text-lg opacity-90 mb-8 max-w-xl mx-auto">
-      5,000+ moms already made the switch. Their kids are brushing happily. Their evenings are peaceful. You deserve that too.
-    </p>
-    <a href="{{ section.settings.button_link }}"
-       class="inline-block bg-white text-brand-primary font-black text-lg px-10 py-4 rounded-full hover:bg-brand-bg transition-colors shadow-lg no-underline">
-      {{ section.settings.button_label }}
-    </a>
-    <p class="mt-4 text-sm opacity-75">Free Shipping · 30-Day Guarantee · Your Sanity is Worth It</p>
-  </section>
+  <!-- Bottom CTA Strip -->
+  <div class="bt-cta-strip">
+    <p class="bt-cta-strip__eyebrow">Join 5,000+ Happy Families</p>
+    <h2 class="bt-cta-strip__title">Tonight Could Be the Last Night<br>You Fight Over Brushing</h2>
+    <p class="bt-cta-strip__body">5,000+ moms already made the switch. Their kids are brushing happily. Their evenings are peaceful. You deserve that too.</p>
+    <a href="{{ section.settings.button_link }}" class="bt-cta-strip__btn">{{ section.settings.button_label }}</a>
+    <p class="bt-cta-strip__fine">Free Shipping &middot; 30-Day Guarantee &middot; Your Sanity is Worth It</p>
+  </div>
 
 </div>
 
