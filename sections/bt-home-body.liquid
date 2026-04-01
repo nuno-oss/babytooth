@@ -1,0 +1,1602 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+  #bt-body-{{ section.id }} {
+    font-family: 'Nunito', sans-serif;
+    --primary-blue: #4D9BCB;
+    --dark-text: #1A2D3D;
+    --body-text: #4a5568;
+    --light-bg: #F3F8FC;
+    --card-bg: #fff;
+    --border-color: #EDF2F7;
+  }
+
+  /* ============ SECTION 1: REVIEWS CAROUSEL ============ */
+  #bt-body-{{ section.id }} .reviews-section {
+    padding: 80px 20px;
+    background: var(--light-bg);
+  }
+
+  #bt-body-{{ section.id }} .reviews-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #bt-body-{{ section.id }} .section-eyebrow {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--primary-blue);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  #bt-body-{{ section.id }} .reviews-heading {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 20px;
+  }
+
+  #bt-body-{{ section.id }} .reviews-rating {
+    text-align: center;
+    font-size: 16px;
+    color: var(--body-text);
+    margin-bottom: 50px;
+  }
+
+  #bt-body-{{ section.id }} .reviews-carousel-wrapper {
+    position: relative;
+    margin-bottom: 40px;
+  }
+
+  #bt-body-{{ section.id }} .reviews-carousel {
+    display: flex;
+    gap: 24px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  #bt-body-{{ section.id }} .review-card {
+    flex: 0 0 calc(33.333% - 16px);
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #bt-body-{{ section.id }} .review-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+
+  #bt-body-{{ section.id }} .review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--light-bg);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  #bt-body-{{ section.id }} .review-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #bt-body-{{ section.id }} .review-author {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark-text);
+  }
+
+  #bt-body-{{ section.id }} .review-stars {
+    font-size: 14px;
+    color: #FFB800;
+    margin-bottom: 12px;
+  }
+
+  #bt-body-{{ section.id }} .review-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--body-text);
+    flex-grow: 1;
+    margin-bottom: 15px;
+  }
+
+  #bt-body-{{ section.id }} .reviews-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  #bt-body-{{ section.id }} .reviews-arrow {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--primary-blue);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--primary-blue);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  #bt-body-{{ section.id }} .reviews-arrow:hover {
+    background: var(--primary-blue);
+    color: white;
+  }
+
+  #bt-body-{{ section.id }} .reviews-dots {
+    display: flex;
+    gap: 8px;
+  }
+
+  #bt-body-{{ section.id }} .review-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  #bt-body-{{ section.id }} .review-dot.active {
+    background: var(--primary-blue);
+    transform: scale(1.3);
+  }
+
+  #bt-body-{{ section.id }} .reviews-cta-wrapper {
+    text-align: center;
+  }
+
+  #bt-body-{{ section.id }} .btn-blue {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  #bt-body-{{ section.id }} .btn-blue:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  /* ============ SECTION 2: PAIN POINTS ============ */
+  #bt-body-{{ section.id }} .pain-points-section {
+    padding: 80px 20px;
+    background: white;
+  }
+
+  #bt-body-{{ section.id }} .pain-points-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #bt-body-{{ section.id }} .pain-points-heading {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  #bt-body-{{ section.id }} .pain-main-heading {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 10px;
+  }
+
+  #bt-body-{{ section.id }} .pain-heading-highlight {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 15px;
+  }
+
+  #bt-body-{{ section.id }} .pain-subtext {
+    font-size: 16px;
+    color: var(--body-text);
+    max-width: 600px;
+    margin: 0 auto 50px;
+  }
+
+  #bt-body-{{ section.id }} .pain-points-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  #bt-body-{{ section.id }} .pain-points-image {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  #bt-body-{{ section.id }} .pain-points-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  #bt-body-{{ section.id }} .pain-points-image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26, 45, 61, 0.85);
+    color: white;
+    padding: 20px;
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  #bt-body-{{ section.id }} .pain-points-image-attribution {
+    font-size: 13px;
+    margin-top: 8px;
+    opacity: 0.9;
+  }
+
+  #bt-body-{{ section.id }} .pain-points-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  #bt-body-{{ section.id }} .pain-card {
+    background: var(--light-bg);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    gap: 20px;
+  }
+
+  #bt-body-{{ section.id }} .pain-card-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+  }
+
+  #bt-body-{{ section.id }} .pain-card-content h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin: 0 0 8px 0;
+  }
+
+  #bt-body-{{ section.id }} .pain-card-content p {
+    font-size: 14px;
+    color: var(--body-text);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  #bt-body-{{ section.id }} .pain-transition {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-top: 40px;
+  }
+
+  /* ============ SECTION 3: SOLUTION ============ */
+  #bt-body-{{ section.id }} .solution-section {
+    padding: 80px 20px;
+    background: var(--light-bg);
+  }
+
+  #bt-body-{{ section.id }} .solution-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #bt-body-{{ section.id }} .solution-heading {
+    text-align: left;
+    margin-bottom: 30px;
+  }
+
+  #bt-body-{{ section.id }} .solution-main-heading {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 5px;
+  }
+
+  #bt-body-{{ section.id }} .solution-heading-highlight {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary-blue);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 5px;
+  }
+
+  #bt-body-{{ section.id }} .solution-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+
+  #bt-body-{{ section.id }} .solution-left {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  #bt-body-{{ section.id }} .solution-description {
+    font-size: 16px;
+    color: var(--body-text);
+    line-height: 1.8;
+  }
+
+  #bt-body-{{ section.id }} .solution-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #bt-body-{{ section.id }} .solution-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--body-text);
+    line-height: 1.6;
+  }
+
+  #bt-body-{{ section.id }} .solution-bullets li:before {
+    content: "â";
+    color: #22C55E;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  #bt-body-{{ section.id }} .solution-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  /* ============ SECTION 4: TRANSFORMATION ============ */
+  #bt-body-{{ section.id }} .transformation-section {
+    padding: 80px 20px;
+    background: white;
+  }
+
+  #bt-body-{{ section.id }} .transformation-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #bt-body-{{ section.id }} .transformation-heading {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  #bt-body-{{ section.id }} .transformation-main {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 5px;
+  }
+
+  #bt-body-{{ section.id }} .transformation-highlight {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary-blue);
+  }
+
+  #bt-body-{{ section.id }} .transformation-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  #bt-body-{{ section.id }} .transformation-card {
+    border-radius: 12px;
+    padding: 40px 30px;
+  }
+
+  #bt-body-{{ section.id }} .transformation-card.before {
+    background: #FEE2E2;
+    border: 1px solid #FECACA;
+  }
+
+  #bt-body-{{ section.id }} .transformation-card.after {
+    background: #DCFCE7;
+    border: 1px solid #BBF7D0;
+  }
+
+  #bt-body-{{ section.id }} .transformation-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 20px;
+  }
+
+  #bt-body-{{ section.id }} .transformation-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #bt-body-{{ section.id }} .transformation-card li {
+    font-size: 14px;
+    color: var(--dark-text);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #bt-body-{{ section.id }} .transformation-card.before li:before {
+    content: "â";
+    color: #EF4444;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  #bt-body-{{ section.id }} .transformation-card.after li:before {
+    content: "â";
+    color: #22C55E;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  #bt-body-{{ section.id }} .transformation-cta {
+    text-align: center;
+  }
+
+  /* ============ SECTION 5: FEATURES GRID ============ */
+  #bt-body-{{ section.id }} .features-section {
+    padding: 80px 20px;
+    background: var(--light-bg);
+  }
+
+  #bt-body-{{ section.id }} .features-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #bt-body-{{ section.id }} .features-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  #bt-body-{{ section.id }} .features-heading {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 5px;
+  }
+
+  #bt-body-{{ section.id }} .features-highlight {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary-blue);
+  }
+
+  #bt-body-{{ section.id }} .features-subtext {
+    font-size: 16px;
+    color: var(--body-text);
+    margin-top: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #bt-body-{{ section.id }} .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  #bt-body-{{ section.id }} .feature-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+  }
+
+  #bt-body-{{ section.id }} .feature-card-icon {
+    font-size: 36px;
+    margin-bottom: 15px;
+  }
+
+  #bt-body-{{ section.id }} .feature-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin: 0 0 10px 0;
+  }
+
+  #bt-body-{{ section.id }} .feature-card p {
+    font-size: 14px;
+    color: var(--body-text);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ============ SECTION 6: DENTIST NOTE ============ */
+  #bt-body-{{ section.id }} .dentist-section {
+    padding: 80px 20px;
+    background: white;
+  }
+
+  #bt-body-{{ section.id }} .dentist-container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  #bt-body-{{ section.id }} .dentist-callout {
+    background: var(--light-bg);
+    border-left: 4px solid var(--primary-blue);
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+  }
+
+  #bt-body-{{ section.id }} .dentist-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 12px;
+  }
+
+  #bt-body-{{ section.id }} .dentist-text {
+    font-size: 15px;
+    color: var(--body-text);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* ============ SECTION 7: SHOP PRODUCTS ============ */
+  #bt-body-{{ section.id }} .shop-section {
+    padding: 80px 20px;
+    background: var(--light-bg);
+  }
+
+  #bt-body-{{ section.id }} .shop-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #bt-body-{{ section.id }} .shop-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  #bt-body-{{ section.id }} .shop-heading {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 10px;
+  }
+
+  #bt-body-{{ section.id }} .shop-subtext {
+    font-size: 16px;
+    color: var(--body-text);
+    margin: 0;
+  }
+
+  #bt-body-{{ section.id }} .shop-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+  }
+
+  #bt-body-{{ section.id }} .product-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+  }
+
+  #bt-body-{{ section.id }} .product-card-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  #bt-body-{{ section.id }} .product-card-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #bt-body-{{ section.id }} .product-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin: 0 0 8px 0;
+  }
+
+  #bt-body-{{ section.id }} .product-card-description {
+    font-size: 14px;
+    color: var(--body-text);
+    margin: 0 0 12px 0;
+    flex-grow: 1;
+  }
+
+  #bt-body-{{ section.id }} .product-card-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 15px;
+  }
+
+  #bt-body-{{ section.id }} .product-card-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  #bt-body-{{ section.id }} .product-card-button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  /* ============ SECTION 8: FAQ ACCORDION ============ */
+  #bt-body-{{ section.id }} .faq-section {
+    padding: 80px 20px;
+    background: white;
+  }
+
+  #bt-body-{{ section.id }} .faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  #bt-body-{{ section.id }} .faq-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  #bt-body-{{ section.id }} .faq-heading {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin: 0 0 10px 0;
+  }
+
+  #bt-body-{{ section.id }} .faq-subtext {
+    font-size: 16px;
+    color: var(--body-text);
+    margin: 15px 0 0 0;
+  }
+
+  #bt-body-{{ section.id }} .faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #bt-body-{{ section.id }} .faq-item {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--card-bg);
+  }
+
+  #bt-body-{{ section.id }} .faq-item-header {
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--light-bg);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  #bt-body-{{ section.id }} .faq-item.active .faq-item-header {
+    background: var(--primary-blue);
+    color: white;
+    border-bottom-color: var(--primary-blue);
+  }
+
+  #bt-body-{{ section.id }} .faq-item-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin: 0;
+  }
+
+  #bt-body-{{ section.id }} .faq-item.active .faq-item-header h3 {
+    color: white;
+  }
+
+  #bt-body-{{ section.id }} .faq-item-toggle {
+    font-size: 18px;
+    color: var(--primary-blue);
+    transition: transform 0.3s ease;
+  }
+
+  #bt-body-{{ section.id }} .faq-item.active .faq-item-toggle {
+    transform: rotate(180deg);
+    color: white;
+  }
+
+  #bt-body-{{ section.id }} .faq-item-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  #bt-body-{{ section.id }} .faq-item.active .faq-item-content {
+    max-height: 500px;
+  }
+
+  #bt-body-{{ section.id }} .faq-item-answer {
+    padding: 20px;
+    font-size: 15px;
+    color: var(--body-text);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* ============ SECTION 9: ZERO RISK GUARANTEE ============ */
+  #bt-body-{{ section.id }} .guarantee-section {
+    padding: 80px 20px;
+    background: var(--dark-text);
+    color: white;
+  }
+
+  #bt-body-{{ section.id }} .guarantee-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #bt-body-{{ section.id }} .guarantee-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--primary-blue);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  #bt-body-{{ section.id }} .guarantee-heading {
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 5px;
+  }
+
+  #bt-body-{{ section.id }} .guarantee-heading-highlight {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary-blue);
+  }
+
+  #bt-body-{{ section.id }} .guarantee-description {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 30px 0 50px 0;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+  }
+
+  #bt-body-{{ section.id }} .guarantee-badges {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+
+  #bt-body-{{ section.id }} .guarantee-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid var(--primary-blue);
+    border-radius: 6px;
+  }
+
+  /* ============ SECTION 10: FINAL CTA ============ */
+  #bt-body-{{ section.id }} .final-cta-section {
+    padding: 80px 20px;
+    background: var(--dark-text);
+    color: white;
+    text-align: center;
+  }
+
+  #bt-body-{{ section.id }} .final-cta-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  #bt-body-{{ section.id }} .final-cta-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  #bt-body-{{ section.id }} .final-cta-heading {
+    font-size: 42px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  #bt-body-{{ section.id }} .final-cta-body {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+
+  #bt-body-{{ section.id }} .final-cta-body strong {
+    color: white;
+    font-weight: 700;
+  }
+
+  #bt-body-{{ section.id }} .final-cta-button {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+  }
+
+  #bt-body-{{ section.id }} .final-cta-button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  #bt-body-{{ section.id }} .final-cta-fine-print {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+  }
+
+  /* ============ MOBILE RESPONSIVE ============ */
+  @media (max-width: 768px) {
+    #bt-body-{{ section.id }} .review-card {
+      flex: 0 0 calc(100% - 0px);
+    }
+
+    #bt-body-{{ section.id }} .pain-points-content {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    #bt-body-{{ section.id }} .solution-content {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    #bt-body-{{ section.id }} .transformation-cards {
+      grid-template-columns: 1fr;
+    }
+
+    #bt-body-{{ section.id }} .features-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #bt-body-{{ section.id }} .shop-products {
+      grid-template-columns: 1fr;
+    }
+
+    #bt-body-{{ section.id }} .guarantee-badges {
+      flex-direction: column;
+    }
+
+    #bt-body-{{ section.id }} .reviews-heading,
+    #bt-body-{{ section.id }} .pain-main-heading,
+    #bt-body-{{ section.id }} .pain-heading-highlight,
+    #bt-body-{{ section.id }} .solution-main-heading,
+    #bt-body-{{ section.id }} .solution-heading-highlight,
+    #bt-body-{{ section.id }} .transformation-main,
+    #bt-body-{{ section.id }} .transformation-highlight,
+    #bt-body-{{ section.id }} .features-heading,
+    #bt-body-{{ section.id }} .features-highlight,
+    #bt-body-{{ section.id }} .faq-heading,
+    #bt-body-{{ section.id }} .shop-heading,
+    #bt-body-{{ section.id }} .guarantee-heading,
+    #bt-body-{{ section.id }} .guarantee-heading-highlight {
+      font-size: 28px;
+    }
+
+    #bt-body-{{ section.id }} .final-cta-heading {
+      font-size: 32px;
+    }
+
+    #bt-body-{{ section.id }} .reviews-section,
+    #bt-body-{{ section.id }} .pain-points-section,
+    #bt-body-{{ section.id }} .solution-section,
+    #bt-body-{{ section.id }} .transformation-section,
+    #bt-body-{{ section.id }} .features-section,
+    #bt-body-{{ section.id }} .dentist-section,
+    #bt-body-{{ section.id }} .shop-section,
+    #bt-body-{{ section.id }} .faq-section,
+    #bt-body-{{ section.id }} .guarantee-section,
+    #bt-body-{{ section.id }} .final-cta-section {
+      padding: 50px 20px;
+    }
+  }
+</style>
+
+<div id="bt-body-{{ section.id }}">
+
+<!-- SECTION 1: REVIEWS CAROUSEL -->
+<section class="reviews-section">
+  <div class="reviews-container">
+    <div class="section-eyebrow">Real Reviews</div>
+    <h2 class="reviews-heading">What Parents Are Saying</h2>
+    <p class="reviews-rating">âââââ 4.94 out of 5</p>
+
+    <div class="reviews-carousel-wrapper">
+      <div class="reviews-carousel" id="reviewsCarousel-{{ section.id }}">
+        {% for review in section.blocks %}
+          {% if review.type == 'review_item' %}
+            <div class="review-card">
+              <div class="review-card-header">
+                <div class="review-avatar">
+                  {% if review.settings.avatar %}
+                    <img src="{{ review.settings.avatar | img_url: '40x40' }}" alt="Avatar">
+                  {% else %}
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23E5E7EB'/%3E%3Ccircle cx='20' cy='12' r='6' fill='%23A0AEC0'/%3E%3Cpath d='M 20 20 Q 12 28 10 35 L 30 35 Q 28 28 20 20' fill='%23A0AEC0'/%3E%3C/svg%3E" alt="Avatar">
+                  {% endif %}
+                </div>
+                <div class="review-author">{{ review.settings.author | default: 'Anonymous' }}</div>
+              </div>
+              <div class="review-stars">âââââ</div>
+              <p class="review-text">{{ review.settings.text }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="reviews-controls">
+      <button class="reviews-arrow" onclick="scrollReviews('{{ section.id }}', -1)">â</button>
+      <div class="reviews-dots" id="reviewsDots-{{ section.id }}"></div>
+      <button class="reviews-arrow" onclick="scrollReviews('{{ section.id }}', 1)">â</button>
+    </div>
+
+    <div class="reviews-cta-wrapper">
+      <a href="#" class="btn-blue">Join Happy Parents â</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: PAIN POINTS -->
+<section class="pain-points-section">
+  <div class="pain-points-container">
+    <div class="pain-points-heading">
+      <div class="section-eyebrow">Every Mom Knows This Feeling</div>
+      <h2 class="pain-main-heading">You Love Your Kids More Than Anything.</h2>
+      <h3 class="pain-heading-highlight">So Why Does Brushing Feel So Hard?</h3>
+      <p class="pain-subtext">You're not a bad parent. You're dealing with one of the most common â and most stressful â parts of raising little ones.</p>
+    </div>
+
+    <div class="pain-points-content">
+      <div class="pain-points-image">
+        {% if section.settings.pain_image %}
+          <img src="{{ section.settings.pain_image | img_url: '500x' }}" alt="Mom with child">
+        {% else %}
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="background: #E5E7EB;">
+            <rect width="400" height="400" fill="#E5E7EB"/>
+          </svg>
+        {% endif %}
+        <div class="pain-points-image-overlay">
+          "I used to cry after brushing time because it was such a fight."
+          <div class="pain-points-image-attribution">â Sarah, mom of 2</div>
+        </div>
+      </div>
+
+      <div class="pain-points-cards">
+        <div class="pain-card">
+          <div class="pain-card-icon">ð</div>
+          <div class="pain-card-content">
+            <h3>The Nightly Battle</h3>
+            <p>You dread it every single night. The crying, the clenched jaw, the "I don't wanna!" It's exhausting â and it breaks your heart.</p>
+          </div>
+        </div>
+
+        <div class="pain-card">
+          <div class="pain-card-icon">ð</div>
+          <div class="pain-card-content">
+            <h3>The 10-Second Fake Brush</h3>
+            <p>When they finally agree, they wave the brush around for a few seconds and call it done. You know their teeth aren't clean, but you're too tired to fight again.</p>
+          </div>
+        </div>
+
+        <div class="pain-card">
+          <div class="pain-card-icon">â ï¸</div>
+          <div class="pain-card-content">
+            <h3>The Dentist Guilt Trip</h3>
+            <p>Then comes the cavity diagnosis. The guilt hits hard â 'Am I failing as a mom?' No. You're just missing the right tool.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pain-transition">What if brushing could be the easiest part of your night?</div>
+  </div>
+</section>
+
+<!-- SECTION 3: SOLUTION -->
+<section class="solution-section">
+  <div class="solution-container">
+    <div class="solution-heading">
+      <h2 class="solution-main-heading">Picture This: Your Child</h2>
+      <h3 class="solution-heading-highlight">Asks to Brush Their Teeth</h3>
+    </div>
+
+    <div class="solution-content">
+      <div class="solution-left">
+        <p class="solution-description">
+          Imagine a toothbrush that does what a regular brush can't. One that wraps around every tooth at once, cleaning all angles perfectly â without the fight, without the technique, without the endless negotiations.
+        </p>
+
+        <ul class="solution-bullets">
+          <li>Cleans every single tooth at once â front, back, and chewing surfaces</li>
+          <li>Gentle vibrations kids actually giggle at â it tickles!</li>
+          <li>Soft medical-grade silicone â safer than a regular brush</li>
+          <li>Done in 60 seconds â that's less time than tying their shoes</li>
+          <li>Cute design they'll beg to use â finally, a bedtime win</li>
+        </ul>
+
+        <a href="#" class="btn-blue">I Want Peaceful Bedtimes â</a>
+      </div>
+
+      <div class="solution-image">
+        {% if section.settings.solution_image %}
+          <img src="{{ section.settings.solution_image | img_url: '500x' }}" alt="Baby Tooth brush">
+        {% else %}
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="background: #E5E7EB; border-radius: 12px;">
+            <rect width="400" height="400" fill="#E5E7EB"/>
+          </svg>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: TRANSFORMATION -->
+<section class="transformation-section">
+  <div class="transformation-container">
+    <div class="transformation-heading">
+      <h2 class="transformation-main">From Brushing Battles to</h2>
+      <h3 class="transformation-highlight">Bedtime Bliss</h3>
+    </div>
+
+    <div class="transformation-cards">
+      <div class="transformation-card before">
+        <h3>Before Baby Tooth</h3>
+        <ul>
+          <li>15 minutes of crying and begging</li>
+          <li>Teeth barely brushed</li>
+          <li>Cavities at the dentist</li>
+          <li>Guilt and exhaustion every night</li>
+        </ul>
+      </div>
+
+      <div class="transformation-card after">
+        <h3>After Baby Tooth</h3>
+        <ul>
+          <li>60 seconds of happy brushing</li>
+          <li>Every tooth cleaned automatically</li>
+          <li>Proud dentist checkups</li>
+          <li>Peaceful evenings you actually enjoy</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="transformation-cta">
+      <a href="#" class="btn-blue">I'm Ready for Peaceful Evenings â</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: FEATURES GRID -->
+<section class="features-section">
+  <div class="features-container">
+    <div class="features-header">
+      <div class="section-eyebrow">Why 5,000+ Moms Chose Baby Tooth</div>
+      <h2 class="features-heading">One Little Brush.</h2>
+      <h3 class="features-highlight">So Much Relief.</h3>
+      <p class="features-subtext">Every feature was designed with one question: "How do we make Mom's life easier?"</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-card-icon">â¨</div>
+        <h3>360Â° Clean in Seconds</h3>
+        <p>The U-shape wraps around every tooth â no missed spots, no re-brushing, no nagging.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-icon">ð¡ï¸</div>
+        <h3>Gentle Enough for Toddlers</h3>
+        <p>Soft medical-grade silicone that's safer than a regular brush. BPA-free. Mom-approved.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-icon">â±</div>
+        <h3>Smart Timer Does the Thinking</h3>
+        <p>120-second auto timer so you never have to count or guess. Just let it run.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-icon">ð</div>
+        <h3>They'll Actually Want to Brush</h3>
+        <p>Kids treat it like a toy. You'll finally stop saying "go brush your teeth" five times.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-icon">ð§</div>
+        <h3>Bath Time? No Problem</h3>
+        <p>IPX7 waterproof means it goes in the tub, the shower, wherever the fun is.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-icon">ð</div>
+        <h3>Charge Once, Forget for 2 Weeks</h3>
+        <p>15-day battery life from a single USB charge. One less thing on your to-do list.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: DENTIST NOTE -->
+<section class="dentist-section">
+  <div class="dentist-container">
+    <div class="dentist-callout">
+      <h3 class="dentist-title">ð¦· A Quick Note from Dentists</h3>
+      <p class="dentist-text">Pediatric dentists recommend replacing brush heads every 30 days for the cleanest, safest clean. Fresh heads = healthy smiles. Stock up and never worry.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: SHOP PRODUCTS -->
+<section class="shop-section">
+  <div class="shop-container">
+    <div class="shop-header">
+      <div class="section-eyebrow">Shop</div>
+      <h2 class="shop-heading">Choose What's Right for Your Child</h2>
+      <p class="shop-subtext">Available for ages 2â6 and 6â12. Multiple fun colors!</p>
+    </div>
+
+    <div class="shop-products">
+      {% if section.settings.product_1 != blank %}
+        {% assign product = section.settings.product_1 %}
+        <div class="product-card">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | img_url: '500x500' }}" alt="{{ product.title }}" class="product-card-image">
+          {% endif %}
+          <div class="product-card-content">
+            <h3 class="product-card-title">{{ product.title }}</h3>
+            {% if product.description != blank %}
+              <p class="product-card-description">{{ product.description | strip_html | truncatewords: 20 }}</p>
+            {% endif %}
+            <div class="product-card-price">{{ product.price | money }}</div>
+            <form method="post" action="/cart/add">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+              <button type="submit" class="product-card-button">
+                <span>ð</span>
+                <span>Add to Cart</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if section.settings.product_2 != blank %}
+        {% assign product = section.settings.product_2 %}
+        <div class="product-card">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | img_url: '500x500' }}" alt="{{ product.title }}" class="product-card-image">
+          {% endif %}
+          <div class="product-card-content">
+            <h3 class="product-card-title">{{ product.title }}</h3>
+            {% if product.description != blank %}
+              <p class="product-card-description">{{ product.description | strip_html | truncatewords: 20 }}</p>
+            {% endif %}
+            <div class="product-card-price">{{ product.price | money }}</div>
+            <form method="post" action="/cart/add">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+              <button type="submit" class="product-card-button">
+                <span>ð</span>
+                <span>Add to Cart</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8: FAQ ACCORDION -->
+<section class="faq-section">
+  <div class="faq-container">
+    <div class="faq-header">
+      <div class="section-eyebrow">Still Have Questions?</div>
+      <h2 class="faq-heading">We Get It â You Want to Be Sure</h2>
+      <p class="faq-subtext">Every mom asks these before buying. Here are honest answers.</p>
+    </div>
+
+    <div class="faq-accordion">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' %}
+          <div class="faq-item">
+            <div class="faq-item-header" onclick="toggleFaq(this)">
+              <h3>{{ block.settings.question }}</h3>
+              <span class="faq-item-toggle">â¼</span>
+            </div>
+            <div class="faq-item-content">
+              <p class="faq-item-answer">{{ block.settings.answer }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 9: ZERO RISK GUARANTEE -->
+<section class="guarantee-section">
+  <div class="guarantee-container">
+    <div class="guarantee-eyebrow">Zero Risk</div>
+    <h2 class="guarantee-heading">Try It for 30 Days.</h2>
+    <h3 class="guarantee-heading-highlight">Love It or Get Every Penny Back.</h3>
+    <p class="guarantee-description">
+      We're so confident you'll love Baby Tooth that we're putting our money where our mouth is. No questions asked, no fine print. If your child doesn't love it (or if you don't love the peaceful bedtimes), we'll refund every penny.
+    </p>
+    <div class="guarantee-badges">
+      <div class="guarantee-badge">â 30-Day Money-Back Guarantee</div>
+      <div class="guarantee-badge">â Free Worldwide Shipping</div>
+      <div class="guarantee-badge">â Hassle-Free Returns</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 10: FINAL CTA -->
+<section class="final-cta-section">
+  <div class="final-cta-container">
+    <div class="final-cta-icon">ð</div>
+    <h2 class="final-cta-heading">Tonight Could Be the Last Night You Fight Over Brushing</h2>
+    <p class="final-cta-body">5,000+ moms already made the switch... <strong>You deserve that too.</strong></p>
+    <a href="#" class="final-cta-button">Get Baby Tooth Now â</a>
+    <p class="final-cta-fine-print">Free Shipping Â· 30-Day Guarantee Â· Your Sanity is Worth It</p>
+  </div>
+</section>
+
+</div><!-- end #bt-body-{{ section.id }} -->
+
+<script>
+  function scrollReviews(sectionId, direction) {
+    const carousel = document.getElementById('reviewsCarousel-' + sectionId);
+    const scrollAmount = 380; // card width + gap
+    carousel.scrollLeft += direction * scrollAmount;
+    updateReviewDots(sectionId);
+  }
+
+  function updateReviewDots(sectionId) {
+    const carousel = document.getElementById('reviewsCarousel-' + sectionId);
+    const dotsContainer = document.getElementById('reviewsDots-' + sectionId);
+    const cards = carousel.querySelectorAll('.review-card');
+    const visibleCards = 3;
+    const totalPages = Math.ceil(cards.length / visibleCards);
+
+    dotsContainer.innerHTML = '';
+
+    for (let i = 0; i < totalPages; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'review-dot';
+      if (i === 0) dot.classList.add('active');
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function toggleFaq(element) {
+    const faqItem = element.parentElement;
+    faqItem.classList.toggle('active');
+  }
+
+  // Initialize review carousel dots
+  document.addEventListener('DOMContentLoaded', function() {
+    updateReviewDots('{{ section.id }}');
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Baby Tooth - Home Body",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "pain_image",
+      "label": "Pain Points Section Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "solution_image",
+      "label": "Solution Section Image"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product 2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review_item",
+      "name": "Review Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Anonymous"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Review Text",
+          "default": "<p>Great product!</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar Image"
+        }
+      ]
+    },
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Your question here"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Your answer here</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Baby Tooth - Home Body",
+      "blocks": [
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "A very good toothbrush, the child liked it, it comes with a charger, thanks to the seller! ð"
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "My son love it so much ð"
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "Kids love them and wanted to use them right away."
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "This came very fast and came with every thing in it my sister really loves it"
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "A good brush gently cleanses. My 5-year-old daughter loves playing with it all day."
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "Replacement Toothbrush Heads"
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "My kids love the u brushes"
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "Love the u brushes"
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "It's helps my daughter clean her teeth every day by herself"
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "It really works well for its price."
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "My daughter loved it, but I think she has another kind of toothpaste."
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "My baby love it"
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "The kids love it"
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "The box damaged but the contents are fine."
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "I just received my package and I loved it exactly as described on the page, my grandson is already using it and everything is fine, thank you."
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "Kids love them and wanted to use them right away."
+          }
+        },
+        {
+          "type": "review_item",
+          "settings": {
+            "author": "Anonymous",
+            "text": "Kids love them and wanted to use them right away."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "My child is only 2 â is it really safe?",
+            "answer": "Absolutely. Baby Tooth is made from 100% food-grade silicone, is BPA-free, and uses ultra-soft bristles designed for sensitive gums. It's been tested and recommended by pediatric dentists for children ages 2â12."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does brushing take? My kid won't sit still.",
+            "answer": "Just 60 seconds! The U-shaped design cleans all teeth simultaneously, so there's no need for technique or patience. Most kids actually enjoy it because of the gentle vibrations."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will my child actually use it â or will it collect dust?",
+            "answer": "Kids love it! The cute animal design makes it feel like a toy, not a chore. Most parents report their children actually ask to brush their teeth after trying Baby Tooth."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How often do I replace the brush heads?",
+            "answer": "Dentists recommend every 30 days for optimal hygiene. Our Automatic Replacement Plan sends a fresh head monthly so you never have to remember."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can my child use it in the bath or shower?",
+            "answer": "Yes! Baby Tooth is IPX7 waterproof, so it's completely safe for use in the bath, shower, or anywhere water play happens."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What if my child doesn't like it?",
+            "answer": "We offer a no-questions-asked 30-day money-back guarantee. If your child doesn't love it (or if you don't love the peaceful bedtimes), we'll refund every penny."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
