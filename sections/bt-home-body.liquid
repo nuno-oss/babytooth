@@ -680,6 +680,154 @@
     transform: translateY(-2px);
   }
 
+  /* ============ SECTION 7.5: HOW IT WORKS INFOGRAPHIC ============ */
+  #bt-body-{{ section.id }} .how-it-works-section {
+    padding: 80px 20px;
+    background: var(--light-bg);
+  }
+
+  #bt-body-{{ section.id }} .how-it-works-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #bt-body-{{ section.id }} .how-it-works-heading {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 10px;
+  }
+
+  #bt-body-{{ section.id }} .how-it-works-highlight {
+    color: var(--primary-blue);
+  }
+
+  #bt-body-{{ section.id }} .how-it-works-subtext {
+    font-size: 16px;
+    color: var(--body-text);
+    margin-bottom: 60px;
+    line-height: 1.6;
+  }
+
+  #bt-body-{{ section.id }} .hiw-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 50px;
+    position: relative;
+  }
+
+  #bt-body-{{ section.id }} .hiw-steps::before {
+    content: '';
+    position: absolute;
+    top: 55px;
+    left: 15%;
+    right: 15%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-blue) 0%, rgba(77,155,203,0.3) 100%);
+    z-index: 0;
+  }
+
+  #bt-body-{{ section.id }} .hiw-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #bt-body-{{ section.id }} .hiw-step-number {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--primary-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 25px rgba(77, 155, 203, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  #bt-body-{{ section.id }} .hiw-step:hover .hiw-step-number {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(77, 155, 203, 0.25);
+  }
+
+  #bt-body-{{ section.id }} .hiw-step-icon {
+    font-size: 44px;
+    line-height: 1;
+  }
+
+  #bt-body-{{ section.id }} .hiw-step-badge {
+    display: inline-block;
+    background: var(--primary-blue);
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  #bt-body-{{ section.id }} .hiw-step-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 10px;
+  }
+
+  #bt-body-{{ section.id }} .hiw-step-desc {
+    font-size: 14px;
+    color: var(--body-text);
+    line-height: 1.6;
+    max-width: 220px;
+  }
+
+  #bt-body-{{ section.id }} .hiw-bottom-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border: 2px solid var(--primary-blue);
+    border-radius: 50px;
+    padding: 14px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--dark-text);
+  }
+
+  #bt-body-{{ section.id }} .hiw-bottom-note span.hiw-note-icon {
+    font-size: 22px;
+  }
+
+  @media (max-width: 768px) {
+    #bt-body-{{ section.id }} .hiw-steps {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 20px;
+    }
+    #bt-body-{{ section.id }} .hiw-steps::before {
+      display: none;
+    }
+    #bt-body-{{ section.id }} .hiw-step-number {
+      width: 90px;
+      height: 90px;
+    }
+    #bt-body-{{ section.id }} .hiw-step-icon {
+      font-size: 36px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #bt-body-{{ section.id }} .hiw-steps {
+      grid-template-columns: 1fr;
+    }
+  }
+
   /* ============ SECTION 8: FAQ ACCORDION ============ */
   #bt-body-{{ section.id }} .faq-section {
     padding: 80px 20px;
@@ -952,6 +1100,7 @@
     #bt-body-{{ section.id }} .features-highlight,
     #bt-body-{{ section.id }} .faq-heading,
     #bt-body-{{ section.id }} .shop-heading,
+    #bt-body-{{ section.id }} .how-it-works-heading,
     #bt-body-{{ section.id }} .guarantee-heading,
     #bt-body-{{ section.id }} .guarantee-heading-highlight {
       font-size: 28px;
@@ -968,6 +1117,7 @@
     #bt-body-{{ section.id }} .features-section,
     #bt-body-{{ section.id }} .dentist-section,
     #bt-body-{{ section.id }} .shop-section,
+    #bt-body-{{ section.id }} .how-it-works-section,
     #bt-body-{{ section.id }} .faq-section,
     #bt-body-{{ section.id }} .guarantee-section,
     #bt-body-{{ section.id }} .final-cta-section {
@@ -1265,6 +1415,55 @@
           </div>
         </div>
       {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7.5: HOW IT WORKS INFOGRAPHIC -->
+<section class="how-it-works-section" id="how-it-works">
+  <div class="how-it-works-container">
+    <div class="section-eyebrow">Simple As 1-2-3</div>
+    <h2 class="how-it-works-heading">How <span class="how-it-works-highlight">Baby Tooth</span> Works</h2>
+    <p class="how-it-works-subtext">No fighting. No technique needed. Just 60 seconds to a perfect clean.</p>
+
+    <div class="hiw-steps">
+      <div class="hiw-step">
+        <div class="hiw-step-number">
+          <span class="hiw-step-icon">🪥</span>
+        </div>
+        <span class="hiw-step-badge">Step 1</span>
+        <h3 class="hiw-step-title">Choose Your Brush</h3>
+        <p class="hiw-step-desc">Pick the right size for your child — ages 2–6 or 6–12. Fun animal designs they'll love!</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-step-number">
+          <span class="hiw-step-icon">✨</span>
+        </div>
+        <span class="hiw-step-badge">Step 2</span>
+        <h3 class="hiw-step-title">Add Toothpaste</h3>
+        <p class="hiw-step-desc">Apply a pea-sized amount of your child’s favourite toothpaste onto the U-shaped brush head.</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-step-number">
+          <span class="hiw-step-icon">😁</span>
+        </div>
+        <span class="hiw-step-badge">Step 3</span>
+        <h3 class="hiw-step-title">Bite Down & Press</h3>
+        <p class="hiw-step-desc">Your child bites on the mouthpiece and presses the button. The brush does all the work!</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-step-number">
+          <span class="hiw-step-icon">🎉</span>
+        </div>
+        <span class="hiw-step-badge">Step 4</span>
+        <h3 class="hiw-step-title">Done in 60 Seconds!</h3>
+        <p class="hiw-step-desc">Every tooth cleaned automatically — front, back, and chewing surfaces. Time for a high-five!</p>
+      </div>
+    </div>
+
+    <div class="hiw-bottom-note">
+      <span class="hiw-note-icon">🦷</span>
+      <span>360° clean — every single tooth, every single time</span>
     </div>
   </div>
 </section>
